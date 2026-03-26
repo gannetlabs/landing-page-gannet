@@ -81,7 +81,7 @@ export default function ContactCTA() {
     "w-full bg-surface-container-low border-0 border-b border-outline-variant text-on-surface placeholder-on-surface-variant/50 px-0 py-3 text-sm focus:outline-none focus:border-surface-tint transition-colors";
 
   return (
-    <section id="contacto" className="py-24 md:py-32" style={{ background: "#001a0a" }}>
+    <section id="contacto" className="py-24 md:py-32" style={{ background: "#0f0f24" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}

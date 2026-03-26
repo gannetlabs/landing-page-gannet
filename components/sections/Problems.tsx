@@ -41,7 +41,7 @@ export default function Problems() {
     <section
       id="problemas"
       className="py-24 md:py-32"
-      style={{ background: "#001a0a" }}
+      style={{ background: "#0f0f24" }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div

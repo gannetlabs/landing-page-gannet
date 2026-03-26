@@ -29,7 +29,7 @@ export default function Header() {
     <motion.header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        backgroundColor: scrolled ? "rgba(0,14,4,0.75)" : "transparent",
+        backgroundColor: scrolled ? "rgba(10,10,26,0.75)" : "transparent",
         backdropFilter: scrolled ? "blur(20px)" : "none",
         WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
         boxShadow: scrolled ? "0 1px 0 rgba(125,218,154,0.08)" : "none",

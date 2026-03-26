@@ -50,7 +50,7 @@ export default function Verticals() {
   const current = verticals.find((v) => v.id === active)!;
 
   return (
-    <section id="verticales" className="py-24 md:py-32" style={{ background: "#001a0a" }}>
+    <section id="verticales" className="py-24 md:py-32" style={{ background: "#0f0f24" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}
