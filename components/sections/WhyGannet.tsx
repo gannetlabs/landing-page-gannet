@@ -37,7 +37,7 @@ export default function WhyGannet() {
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="por-que" className="py-24 md:py-32" style={{ background: "#001a0a" }}>
+    <section id="por-que" className="py-24 md:py-32" style={{ background: "#0f0f24" }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           ref={ref}

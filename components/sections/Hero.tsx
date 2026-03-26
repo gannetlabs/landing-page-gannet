@@ -29,7 +29,7 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to right, #000e04 30%, rgba(0,14,4,0.80) 55%, rgba(0,14,4,0.20) 80%, transparent 100%)",
+              "linear-gradient(to right, #0a0a1a 30%, rgba(10,10,26,0.80) 55%, rgba(10,10,26,0.20) 80%, transparent 100%)",
           }}
         />
         {/* Top fade */}
@@ -37,14 +37,14 @@ export default function Hero() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,14,4,0.55) 0%, transparent 25%)",
+              "linear-gradient(to bottom, rgba(10,10,26,0.55) 0%, transparent 25%)",
           }}
         />
         {/* Bottom fade to next section */}
         <div
           className="absolute bottom-0 left-0 right-0 h-48"
           style={{
-            background: "linear-gradient(to bottom, transparent, #000e04)",
+            background: "linear-gradient(to bottom, transparent, #0a0a1a)",
           }}
         />
       </div>
