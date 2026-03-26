@@ -86,15 +86,12 @@ export default function Hero() {
             variants={fadeUp}
             className="mt-6 text-lg text-white/60 leading-relaxed max-w-xl"
           >
-            Diseñamos sitios, automatizaciones, integraciones y agentes de IA
-            para que vendas mejor, ahorres tiempo y tomes decisiones con
-            información, no con intuición.
+            Diseñamos automatizaciones, integraciones y agentes de IA para que
+            vendas mejor, ahorres tiempo y tomes decisiones con información, no
+            con intuición.
           </motion.p>
 
-          <motion.div
-            variants={fadeUp}
-            className="mt-10 flex flex-wrap gap-4"
-          >
+          <motion.div variants={fadeUp} className="mt-10 flex flex-wrap gap-4">
             <a
               href="#contacto"
               className="inline-flex items-center gap-2 px-6 py-3.5 bg-surface-tint text-white font-semibold rounded-lg hover:bg-surface-tint/90 transition-colors text-sm"

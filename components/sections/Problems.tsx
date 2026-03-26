@@ -73,15 +73,13 @@ export default function Problems() {
               <motion.div
                 key={problem.title}
                 variants={fadeUp}
-                className="card-glass p-7"
+                className="card-glass p-8 group"
               >
-                <div className="w-11 h-11 rounded-xl bg-accent/15 flex items-center justify-center mb-5">
-                  <problem.icon size={22} className="text-accent" />
-                </div>
-                <h3 className="font-display font-semibold text-white text-lg mb-2">
+                <problem.icon size={48} className="text-accent/20 group-hover:text-accent/70 transition-colors duration-300 mb-5" strokeWidth={1.5} />
+                <h3 className="font-display text-white font-semibold text-lg mb-3 leading-tight">
                   {problem.title}
                 </h3>
-                <p className="text-sm text-white/50 leading-relaxed">
+                <p className="text-white/50 text-sm leading-relaxed">
                   {problem.description}
                 </p>
               </motion.div>

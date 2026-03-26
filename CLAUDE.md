@@ -32,12 +32,12 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 
 **Color system** — Tailwind tokens in `tailwind.config.ts` follow Material Design 3 naming. Key tokens:
 
-- `primary` `#000e04` — page background (near-black)
+- `primary` `#0a0a1a` — page background (near-black navy/indigo)
 - `accent` `#7dda9a` — green highlights, icons, bullets
 - `surface-tint` `#006d3b` — all primary CTA buttons
 - `surface-container-lowest` `#ffffff` — light "floating" cards on dark sections
 - `on-surface` / `on-surface-variant` — text on light cards
-- Alternating dark section backgrounds: `bg-primary` (#000e04) and inline `style={{ background: "#001a0a" }}`
+- Alternating dark section backgrounds: `bg-primary` (#0a0a1a) and inline `style={{ background: "#0f0f24" }}`
 - Dark cards use `.card-glass` (defined in `globals.css`) — do NOT use inline `style={{ background: "#002812" }}` for new cards
 - Light cards (Solutions, ContactCTA) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
 

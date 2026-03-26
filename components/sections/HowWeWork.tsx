@@ -65,9 +65,9 @@ export default function HowWeWork() {
               <motion.div
                 key={step.number}
                 variants={fadeUp}
-                className="card-glass p-8"
+                className="card-glass p-8 group"
               >
-                <span className="font-display text-5xl font-bold text-accent/20 leading-none block mb-5">
+                <span className="font-display text-5xl font-bold text-accent/20 group-hover:text-accent/70 transition-colors duration-300 leading-none block mb-5">
                   {step.number}
                 </span>
                 <h3 className="font-display text-white font-semibold text-lg mb-3 leading-tight">
