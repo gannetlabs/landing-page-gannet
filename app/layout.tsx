@@ -4,7 +4,7 @@ import "./globals.css";
 
 const manrope = Manrope({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["600", "700", "800"],
   variable: "--font-manrope",
   display: "swap",
 });
@@ -39,10 +39,7 @@ export default function RootLayout({
         <div aria-hidden="true" className="orb-layer">
           <div className="orb orb-1" />
           <div className="orb orb-2" />
-          <div className="orb orb-3" />
-          <div className="orb orb-4" />
           <div className="orb orb-5" />
-          <div className="orb orb-6" />
         </div>
         <div aria-hidden="true" className="noise-overlay" />
         {children}
