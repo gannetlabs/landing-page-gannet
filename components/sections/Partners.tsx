@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { useInView } from "framer-motion";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { staggerContainer, fadeUp } from "@/lib/animations";
 
 const partners = [
@@ -43,10 +44,11 @@ export default function Partners() {
                 className="opacity-70 hover:opacity-100 transition-opacity duration-300"
                 style={{ filter: "brightness(0)" }}
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <Image
                   src={partner.logo}
                   alt={partner.name}
+                  width={120}
+                  height={60}
                   style={{ height: "60px", width: "auto" }}
                 />
               </div>

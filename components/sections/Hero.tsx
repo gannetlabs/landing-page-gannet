@@ -4,12 +4,25 @@ import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { ArrowRight } from "lucide-react";
 import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
+  loading: () => null,
 });
 
 export default function Hero() {
+  const [showSpline, setShowSpline] = useState(false);
+
+  useEffect(() => {
+    const onLoad = () => setShowSpline(true);
+    if (document.readyState === "complete") {
+      onLoad();
+    } else {
+      window.addEventListener("load", onLoad, { once: true });
+    }
+  }, []);
+
   return (
     <section
       id="inicio"
@@ -20,10 +33,12 @@ export default function Hero() {
         className="absolute inset-0 z-0 pointer-events-none"
         aria-hidden="true"
       >
-        <Spline
-          scene="https://prod.spline.design/tG-Tlcrn4CoidrSb/scene.splinecode"
-          style={{ width: "100%", height: "100%" }}
-        />
+        {showSpline && (
+          <Spline
+            scene="https://prod.spline.design/tG-Tlcrn4CoidrSb/scene.splinecode"
+            style={{ width: "100%", height: "100%" }}
+          />
+        )}
         {/* Left fade — keeps text readable */}
         <div
           className="absolute inset-0"
