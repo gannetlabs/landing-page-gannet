@@ -18,7 +18,7 @@ There are no tests in this project.
 Single-page agencia de ia landing for GannetLabs. Next.js 15 App Router, TypeScript, Tailwind CSS v3, Framer Motion.
 
 **Page composition** — `app/page.tsx` imports and sequences all sections in order:
-`Hero → Problems → Solutions → Verticals → HowWeWork → WhyGannet → FAQ → ContactCTA`
+`Hero → Problems → Solutions → Verticals → HowWeWork → WhyGannet → Partners → FAQ → ContactCTA`
 wrapped by `Header` and `Footer`.
 
 **Section components** — `components/sections/` — each is a self-contained client component with its own data array at the top. All use `useInView` + Framer Motion `staggerContainer`/`fadeUp` variants from `lib/animations.ts` for scroll-triggered animations.
@@ -39,7 +39,8 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 - `on-surface` / `on-surface-variant` — text on light cards
 - Alternating dark section backgrounds: `bg-primary` (#0a0a1a) and inline `style={{ background: "#0f0f24" }}`
 - Dark cards use `.card-glass` (defined in `globals.css`) — do NOT use inline `style={{ background: "#002812" }}` for new cards
-- Light cards (Solutions, ContactCTA) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
+- Light cards (Solutions, ContactCTA, Partners) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
+- Partners section uses white background with logos rendered in black via `filter: brightness(0)`; title uses `text-on-surface` + `text-surface-tint` accent
 
 **Design rules:**
 
@@ -47,6 +48,9 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 - Dark card styling via `.card-glass` (glassmorphism: `rgba(31,31,65,0.35)` + `backdrop-filter: blur(24px)` + green border glow on hover)
 - Light card depth via `shadow-[0_8px_40px_rgba(...)]`, never standard Tailwind shadows
 - All headings need `tracking-tight` and `style={{ letterSpacing: "-0.02em" }}`
+- Dark card icon/number pattern — use `size={48}` Lucide icon (or `text-5xl` span for numbers) with `text-accent/20 group-hover:text-accent/70 transition-colors duration-300`; add `group` to the card wrapper. Do NOT use small icon containers (`w-11 h-11 rounded-xl bg-accent/15`) on dark cards.
+
+**Preview route** — `app/preview/` is gitignored (local only). Use it to prototype card variants before applying to production components.
 
 **Background layer** — `app/layout.tsx` injects two fixed elements before `{children}`:
 
