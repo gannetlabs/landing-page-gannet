@@ -7,7 +7,8 @@ import { staggerContainer, fadeUp } from "@/lib/animations";
 
 const partners = [
   { name: "Nueva Era", logo: "/logonuevaera.svg" },
-  { name: "Tienda", logo: "/logotienda.svg" },
+  { name: "Tienda",    logo: "/logotienda.svg"   },
+  { name: "Dux",       logo: "/logoduxsvg.svg"   },
 ];
 
 export default function Verticals() {
