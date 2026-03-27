@@ -39,7 +39,7 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 - `on-surface` / `on-surface-variant` — text on light cards
 - Alternating dark section backgrounds: `bg-primary` (#0a0a1a) and inline `style={{ background: "#0f0f24" }}`
 - Dark cards use `.card-glass` (defined in `globals.css`) — do NOT use inline `style={{ background: "#002812" }}` for new cards
-- Light cards (Solutions, ContactCTA, Partners) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
+- Light cards (Solutions cards, ContactCTA, Partners) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
 - Partners section uses white background with logos rendered in black via `filter: brightness(0)`; title uses `text-on-surface` + `text-surface-tint` accent
 
 **Design rules:**
@@ -61,3 +61,7 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 **Contact form** — `components/sections/ContactCTA.tsx` validates with `react-hook-form` + Zod, then POSTs to `app/api/contact/route.ts`, which forwards to an n8n webhook via the `N8N_WEBHOOK_URL` env variable. Without that variable, form data is logged to console (dev fallback).
 
 **Animations** — Reusable Framer Motion variants are in `lib/animations.ts` (`fadeUp`, `fadeIn`, `staggerContainer`, `slideInLeft`, `scaleIn`). Don't create new variants inline; add them there if needed.
+
+**GannetBirdAnimation** — `components/ui/GannetBirdAnimation.tsx` — componente reutilizable que anima el isotipo SVG del pájaro verde (`app/icon.svg`). Secuencia: stroke draw (pathLength 0→1, 1.4s) → fill reveal (delay 1.1s) → float loop continuo (y + rotación suave). Acepta prop `size` (número, default 140). Actualmente usado en la sección Solutions como elemento decorativo en la columna izquierda (`size={300}`). El `viewBox` del SVG es `"210 0 150 145"`.
+
+**Solutions layout** — sección dividida en 2 columnas (`lg:grid lg:grid-cols-2`). Columna izquierda: `lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center` — título, descripción y `GannetBirdAnimation` centrados verticalmente mientras las cards scrollean. Columna derecha: 8 cards apiladas (`flex flex-col gap-5`) con iconos `size={48}` igual que Problems.

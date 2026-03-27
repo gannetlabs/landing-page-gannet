@@ -2,8 +2,9 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Globe, ShoppingCart, Zap, Brain, ArrowRight } from "lucide-react";
+import { Globe, ShoppingCart, Zap, Brain, MessageSquare, BarChart2, Users, Code2 } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/animations";
+import GannetBirdAnimation from "@/components/ui/GannetBirdAnimation";
 
 const solutions = [
   {
@@ -34,6 +35,34 @@ const solutions = [
       "Sitios rápidos, bien posicionados y conectados a tus procesos de negocio. No solo una vidriera digital: un sitio que captura leads y genera oportunidades reales.",
     tags: ["Next.js", "SEO", "CMS", "Analytics"],
   },
+  {
+    icon: MessageSquare,
+    title: "Chatbots y atención automatizada",
+    description:
+      "Bots entrenados con tu información que responden preguntas, califican leads y derivan casos complejos a tu equipo. Atención 24/7 sin escalar el headcount.",
+    tags: ["WhatsApp", "Web chat", "LLM", "Handoff"],
+  },
+  {
+    icon: BarChart2,
+    title: "Reportes y tableros de decisión",
+    description:
+      "Centralizamos tus datos dispersos en un solo lugar y los convertimos en visualizaciones claras. Tomás decisiones con información real, no con Excel desactualizado.",
+    tags: ["Metabase", "Power BI", "SQL", "ETL"],
+  },
+  {
+    icon: Users,
+    title: "CRM y gestión de clientes",
+    description:
+      "Implementamos y personalizamos tu CRM para que tu equipo comercial trabaje con contexto completo. Seguimiento de oportunidades, historial y automatización del pipeline.",
+    tags: ["HubSpot", "Pipedrive", "Salesforce", "Custom"],
+  },
+  {
+    icon: Code2,
+    title: "Software a medida",
+    description:
+      "Cuando ninguna herramienta existente resuelve exactamente tu problema, construimos la solución desde cero. Aplicaciones web internas, portales de clientes y herramientas operativas.",
+    tags: ["Next.js", "Node.js", "PostgreSQL", "APIs"],
+  },
 ];
 
 export default function Solutions() {
@@ -48,30 +77,41 @@ export default function Solutions() {
           variants={staggerContainer}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
+          className="lg:grid lg:grid-cols-2 lg:gap-20 items-start"
         >
-          <motion.div variants={fadeUp} className="text-center max-w-2xl mx-auto">
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white leading-tight tracking-tight" style={{ letterSpacing: "-0.02em" }}>
-              Qué podemos construir para tu negocio
+          {/* Left — sticky: título + pájaro animado + CTA */}
+          <motion.div
+            variants={fadeUp}
+            className="lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center mb-14 lg:mb-0"
+          >
+            <div className="flex flex-col">
+            <h2
+              className="font-display text-3xl sm:text-4xl font-bold text-white leading-tight tracking-tight"
+              style={{ letterSpacing: "-0.02em" }}
+            >
+              Qué podemos construir{" "}
+              <span className="text-accent">para tu negocio</span>
             </h2>
             <p className="mt-4 text-base text-white/50 leading-relaxed">
-              Cada solución está diseñada para resolver un problema real, no para
-              impresionar con tecnología.
+              Cada solución está diseñada para resolver un problema real, no
+              para impresionar con tecnología.
             </p>
+
+            <div className="mt-10 flex items-center justify-center lg:justify-start">
+              <GannetBirdAnimation size={300} />
+            </div>
+            </div>
           </motion.div>
 
-          <motion.div
-            variants={staggerContainer}
-            className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-5"
-          >
+          {/* Right — 4 cards apiladas */}
+          <motion.div variants={staggerContainer} className="flex flex-col gap-5">
             {solutions.map((solution) => (
               <motion.div
                 key={solution.title}
                 variants={fadeUp}
                 className="group bg-surface-container-lowest rounded-2xl p-8 hover:shadow-[0_16px_48px_rgba(25,28,30,0.1)] hover:-translate-y-1 transition-all duration-300"
               >
-                <div className="w-11 h-11 rounded-xl bg-accent/15 flex items-center justify-center mb-5">
-                  <solution.icon size={22} className="text-surface-tint" />
-                </div>
+                <solution.icon size={48} className="text-accent/20 group-hover:text-accent/70 transition-colors duration-300 mb-5" strokeWidth={1.5} />
                 <h3 className="font-display font-semibold text-on-surface text-xl mb-3">
                   {solution.title}
                 </h3>
@@ -90,16 +130,6 @@ export default function Solutions() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-
-          <motion.div variants={fadeUp} className="mt-12 text-center">
-            <a
-              href="#contacto"
-              className="inline-flex items-center gap-2 px-6 py-3.5 bg-surface-tint text-white font-semibold rounded-lg hover:bg-surface-tint/90 transition-colors text-sm"
-            >
-              Quiero ver una solución para mi negocio
-              <ArrowRight size={16} />
-            </a>
           </motion.div>
         </motion.div>
       </div>
