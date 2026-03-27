@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView, useAnimation } from "framer-motion";
+import { motion, useInView, useAnimation, type Transition } from "framer-motion";
 import { useRef, useEffect } from "react";
 
 const BIRD_PATH =
@@ -34,7 +34,7 @@ export default function GannetBirdAnimation({
     ? { y: [0, -10, 0], rotate: [-1.5, 1.5, -1.5] }
     : { y: 0, rotate: 0 };
 
-  const floatTransition = isInView
+  const floatTransition: Transition = isInView
     ? { duration: 4, repeat: Infinity, ease: "easeInOut", delay: hasDrawn.current ? 0 : 1.8 }
     : { duration: 0.6, ease: "easeOut" };
 
@@ -43,7 +43,7 @@ export default function GannetBirdAnimation({
     ? { opacity: [0, 0.35, 0.15, 0.35, 0.15] }
     : { opacity: 0 };
 
-  const pulseTransition = isInView
+  const pulseTransition: Transition = isInView
     ? { duration: 3, repeat: Infinity, ease: "easeInOut", delay: hasDrawn.current ? 0 : 1.8 }
     : { duration: 0.3 };
 
