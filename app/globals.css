@@ -37,6 +37,20 @@
     100% { transform: translate(0px, 0px) scale(1); }
   }
 
+  @keyframes clients-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  .clients-marquee-track {
+    animation: clients-marquee 40s linear infinite;
+    will-change: transform;
+  }
+
+  .clients-marquee-wrap:hover .clients-marquee-track {
+    animation-play-state: paused;
+  }
+
   .orb-layer {
     position: fixed;
     inset: 0;
