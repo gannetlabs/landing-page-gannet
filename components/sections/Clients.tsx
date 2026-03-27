@@ -15,9 +15,11 @@ export default function Clients() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  // Duplicamos una sola vez: [original, copia]
-  // translateX(-50%) = ancho exacto del set original → loop seamless sin saltos
-  const logos = [...clients, ...clients];
+  // El set base se repite 4 veces para garantizar que supere cualquier viewport (3 logos × ~300px = ~900px < 1440px).
+  // Luego duplicamos ese set base → [base, base]. El track total = 2 × base.
+  // translateX(-50%) = exactamente el ancho del set base → loop seamless sin huecos ni saltos.
+  const base = [...clients, ...clients, ...clients, ...clients];
+  const logos = [...base, ...base];
 
   return (
     <section className="py-20 md:py-28 bg-primary">
