@@ -66,6 +66,8 @@ export default function Hero() {
             background: "linear-gradient(to bottom, transparent, #0a0a1a)",
           }}
         />
+        {/* Tapa el badge "Built with Spline" */}
+        <div className="absolute bottom-0 left-0 right-0 h-12 bg-primary z-10" />
       </div>
 
       {/* Background subtle grid */}
