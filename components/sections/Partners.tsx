@@ -47,8 +47,8 @@ export default function Partners() {
                 <Image
                   src={partner.logo}
                   alt={partner.name}
-                  width={120}
-                  height={60}
+                  width={0}
+                  height={0}
                   style={{ height: "60px", width: "auto" }}
                 />
               </div>
