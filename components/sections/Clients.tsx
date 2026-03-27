@@ -31,7 +31,7 @@ export default function Clients() {
       >
         <motion.p
           variants={fadeUp}
-          className="text-center text-xs font-semibold uppercase tracking-widest text-white/30 mb-10"
+          className="text-center text-xs font-semibold tracking-widest text-white/30 mb-10"
         >
           Empresas que confían en GannetLabs
         </motion.p>
