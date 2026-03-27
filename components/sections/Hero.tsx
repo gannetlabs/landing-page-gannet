@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { ArrowRight } from "lucide-react";
 import dynamic from "next/dynamic";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
@@ -13,6 +13,9 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
 
 export default function Hero() {
   const [showSpline, setShowSpline] = useState(false);
+  const sectionRef = useRef(null);
+  // margin generoso: Spline no se desmonta hasta estar bien fuera del viewport
+  const heroInView = useInView(sectionRef, { once: false, margin: "200px" });
 
   useEffect(() => {
     const onLoad = () => setShowSpline(true);
@@ -25,15 +28,16 @@ export default function Hero() {
 
   return (
     <section
+      ref={sectionRef}
       id="inicio"
       className="relative bg-primary min-h-screen flex items-center overflow-hidden"
     >
-      {/* Spline 3D background */}
+      {/* Spline 3D background — se desmonta al salir del viewport */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         aria-hidden="true"
       >
-        {showSpline && (
+        {showSpline && heroInView && (
           <Spline
             scene="https://prod.spline.design/tG-Tlcrn4CoidrSb/scene.splinecode"
             style={{ width: "100%", height: "100%" }}
