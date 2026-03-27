@@ -1,8 +1,9 @@
 import { Mail, Phone } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = [
   { label: "Soluciones", href: "#soluciones" },
-  { label: "Verticales", href: "#verticales" },
+  { label: "Partners", href: "#verticales" },
   { label: "Cómo trabajamos", href: "#como-trabajamos" },
   { label: "FAQ", href: "#faq" },
   { label: "Contacto", href: "#contacto" },
@@ -15,9 +16,12 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
           <div>
-            <span className="font-display text-white font-bold text-xl tracking-tight">
-              Gannet<span className="text-accent">Labs</span>
-            </span>
+            <Image
+              src="/logosvg.svg"
+              alt="GannetLabs"
+              width={130}
+              height={55}
+            />
             <p className="mt-4 text-sm leading-relaxed">
               Software, automatización, datos e IA aplicada para negocios reales.
             </p>

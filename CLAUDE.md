@@ -18,7 +18,7 @@ There are no tests in this project.
 Single-page agencia de ia landing for GannetLabs. Next.js 16 App Router, TypeScript, Tailwind CSS v3, Framer Motion v12.
 
 **Page composition** — `app/page.tsx` imports and sequences all sections in order:
-`Hero → Problems → Solutions → Verticals → HowWeWork → WhyGannet → Partners → FAQ → ContactCTA`
+`Hero → Problems → Solutions → Verticals → HowWeWork → WhyGannet → FAQ → ContactCTA`
 wrapped by `Header` and `Footer`.
 
 **Section components** — `components/sections/` — each is a self-contained client component with its own data array at the top. All use `useInView` + Framer Motion `staggerContainer`/`fadeUp` variants from `lib/animations.ts` for scroll-triggered animations.
@@ -39,8 +39,7 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 - `on-surface` / `on-surface-variant` — text on light cards
 - Alternating dark section backgrounds: `bg-primary` (#0a0a1a) and inline `style={{ background: "#0f0f24" }}`
 - Dark cards use `.card-glass` (defined in `globals.css`) — do NOT use inline `style={{ background: "#002812" }}` for new cards
-- Light cards (Solutions cards, ContactCTA, Partners) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
-- Partners section uses white background with logos rendered in black via `filter: brightness(0)`; title uses `text-on-surface` + `text-surface-tint` accent
+- Light cards (Solutions cards, ContactCTA) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
 
 **Design rules:**
 
@@ -72,4 +71,8 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 
 **Performance — `next.config.mjs`** — configurado con `images.formats: ["image/avif", "image/webp"]`, `compress: true`, `experimental.optimizeCss: true`. No agregar `experimental` flags sin verificar compatibilidad con la versión de Next.js en uso.
 
-**Partners logos** — usar `<Image>` de `next/image` con `width={0} height={0}` y `style={{ height: "60px", width: "auto" }}` para logos SVG con aspect ratio variable. Evita el warning de Next.js sobre dimensiones modificadas.
+**Partners logos** — usar `<Image>` de `next/image` con `width={0} height={0}` y `style={{ height: "60px", width: "auto" }}` para logos SVG con aspect ratio variable. Evita el warning de Next.js sobre dimensiones modificadas. Los logos se muestran en blanco sobre fondo oscuro con `filter: brightness(0) invert(1)` y `opacity-50 hover:opacity-100`.
+
+**Verticals (Partners estratégicos)** — `components/sections/Verticals.tsx` — la sección que ocupa la posición de "verticales" en el flujo ahora muestra los partners estratégicos (Nueva Era, Tienda). Fondo `#0f0f24`, padding `py-32 md:py-40`, título con `text-accent`, logos blancos con hover de opacidad. La sección `Partners.tsx` original (fondo blanco) fue eliminada del flujo.
+
+**Footer** — usa `<Image src="/logosvg.svg">` en lugar de texto para la marca GannetLabs.

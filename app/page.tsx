@@ -6,7 +6,6 @@ import Solutions from "@/components/sections/Solutions";
 import Verticals from "@/components/sections/Verticals";
 import HowWeWork from "@/components/sections/HowWeWork";
 import WhyGannet from "@/components/sections/WhyGannet";
-import Partners from "@/components/sections/Partners";
 import FAQ from "@/components/sections/FAQ";
 import ContactCTA from "@/components/sections/ContactCTA";
 
@@ -21,7 +20,6 @@ export default function Home() {
         <Verticals />
         <HowWeWork />
         <WhyGannet />
-        <Partners />
         <FAQ />
         <ContactCTA />
       </main>
