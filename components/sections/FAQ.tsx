@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, AnimatePresence } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { Plus, Minus } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
@@ -50,21 +50,14 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
           {open ? <Minus size={20} /> : <Plus size={20} />}
         </span>
       </button>
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="overflow-hidden"
-          >
-            <p className="text-white/50 text-sm leading-relaxed pb-5">
-              {answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div
+        className="overflow-hidden transition-all duration-300 ease-in-out"
+        style={{ maxHeight: open ? "400px" : "0px", opacity: open ? 1 : 0 }}
+      >
+        <p className="text-white/50 text-sm leading-relaxed pb-5">
+          {answer}
+        </p>
+      </div>
     </div>
   );
 }

@@ -15,7 +15,7 @@ There are no tests in this project.
 
 ## Architecture
 
-Single-page agencia de ia landing for GannetLabs. Next.js 15 App Router, TypeScript, Tailwind CSS v3, Framer Motion.
+Single-page agencia de ia landing for GannetLabs. Next.js 16 App Router, TypeScript, Tailwind CSS v3, Framer Motion v12.
 
 **Page composition** — `app/page.tsx` imports and sequences all sections in order:
 `Hero → Problems → Solutions → Verticals → HowWeWork → WhyGannet → Partners → FAQ → ContactCTA`
@@ -54,7 +54,7 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 
 **Background layer** — `app/layout.tsx` injects two fixed elements before `{children}`:
 
-- `.orb-layer` (z-index 0) — 6 radial glow orbs with floating animations; colors: navy `#1F1F41`, teal `#3da8a0`, verde `#64B97D`, mint `#7edbb5`, deep `#161638`
+- `.orb-layer` (z-index 0) — 3 radial glow orbs (orb-1, orb-2, orb-5) with floating animations; colors: navy `#1F1F41`, teal `#3da8a0`, deep `#161638`. Reducidos de 6 a 3 por rendimiento, blur entre 55–70px.
 - `.noise-overlay` (z-index 1) — SVG feTurbulence grain at opacity 0.045
   Both are `pointer-events: none` and `aria-hidden`. All styles live in `globals.css` `@layer base`.
 
@@ -62,6 +62,14 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 
 **Animations** — Reusable Framer Motion variants are in `lib/animations.ts` (`fadeUp`, `fadeIn`, `staggerContainer`, `slideInLeft`, `scaleIn`). Don't create new variants inline; add them there if needed.
 
-**GannetBirdAnimation** — `components/ui/GannetBirdAnimation.tsx` — componente reutilizable que anima el isotipo SVG del pájaro verde (`app/icon.svg`). Secuencia: stroke draw (pathLength 0→1, 1.4s) → fill reveal (delay 1.1s) → float loop continuo (y + rotación suave). Acepta prop `size` (número, default 140). Actualmente usado en la sección Solutions como elemento decorativo en la columna izquierda (`size={300}`). El `viewBox` del SVG es `"210 0 150 145"`.
+**GannetBirdAnimation** — `components/ui/GannetBirdAnimation.tsx` — componente reutilizable que anima el isotipo SVG del pájaro verde (`app/icon.svg`). Secuencia: stroke draw (pathLength 0→1, 1.4s, solo la primera vez) → fill reveal (delay 1.1s) → float loop (y + rotación suave) + pulse glow. Los loops infinitos usan `useInView` con `once: false`: se pausan cuando el componente sale del viewport y reanudan al volver, liberando GPU. Al tipar transiciones con `Transition` de Framer Motion v12, usar `import { type Transition } from "framer-motion"` para evitar errores de TypeScript con el tipo `ease`. Acepta prop `size` (número, default 140). Actualmente usado en la sección Solutions como elemento decorativo en la columna izquierda (`size={300}`). El `viewBox` del SVG es `"210 0 150 145"`.
 
 **Solutions layout** — sección dividida en 2 columnas (`lg:grid lg:grid-cols-2`). Columna izquierda: `lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center` — título, descripción y `GannetBirdAnimation` centrados verticalmente mientras las cards scrollean. Columna derecha: 8 cards apiladas (`flex flex-col gap-5`) con iconos `size={48}` igual que Problems.
+
+**Hero / Spline 3D** — `components/sections/Hero.tsx` — el canvas WebGL de Spline se carga después del evento `window.load` (`showSpline` state) Y solo se monta cuando la sección Hero está en el viewport (`heroInView` via `useInView once:false, margin:"200px"`). Al salir del viewport se desmonta, liberando el loop de render WebGL y la GPU.
+
+**FAQ accordion** — `components/sections/FAQ.tsx` — NO usar `AnimatePresence` con `height: "auto"` en Framer Motion v12: crashea Safari/WebKit durante el exit animation. El acordeón usa `max-height` CSS con `transition-all duration-300` (`0px` ↔ `400px`) + `opacity` inline. Mismo efecto visual, sin dependencia de medición DOM en tiempo de desmontaje.
+
+**Performance — `next.config.mjs`** — configurado con `images.formats: ["image/avif", "image/webp"]`, `compress: true`, `experimental.optimizeCss: true`. No agregar `experimental` flags sin verificar compatibilidad con la versión de Next.js en uso.
+
+**Partners logos** — usar `<Image>` de `next/image` con `width={0} height={0}` y `style={{ height: "60px", width: "auto" }}` para logos SVG con aspect ratio variable. Evita el warning de Next.js sobre dimensiones modificadas.
