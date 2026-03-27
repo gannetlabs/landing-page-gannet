@@ -18,7 +18,7 @@ There are no tests in this project.
 Single-page agencia de ia landing for GannetLabs. Next.js 16 App Router, TypeScript, Tailwind CSS v3, Framer Motion v12.
 
 **Page composition** — `app/page.tsx` imports and sequences all sections in order:
-`Hero → Problems → Solutions → Verticals → HowWeWork → WhyGannet → FAQ → ContactCTA`
+`Hero → Problems → Solutions → Clients → HowWeWork → WhyGannet → Verticals → FAQ → ContactCTA`
 wrapped by `Header` and `Footer`.
 
 **Section components** — `components/sections/` — each is a self-contained client component with its own data array at the top. All use `useInView` + Framer Motion `staggerContainer`/`fadeUp` variants from `lib/animations.ts` for scroll-triggered animations.
@@ -73,6 +73,8 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 
 **Partners logos** — usar `<Image>` de `next/image` con `width={0} height={0}` y `style={{ height: "60px", width: "auto" }}` para logos SVG con aspect ratio variable. Evita el warning de Next.js sobre dimensiones modificadas. Los logos se muestran en blanco sobre fondo oscuro con `filter: brightness(0) invert(1)` y `opacity-50 hover:opacity-100`.
 
-**Verticals (Partners estratégicos)** — `components/sections/Verticals.tsx` — la sección que ocupa la posición de "verticales" en el flujo ahora muestra los partners estratégicos (Nueva Era, Tienda). Fondo `#0f0f24`, padding `py-32 md:py-40`, título con `text-accent`, logos blancos con hover de opacidad. La sección `Partners.tsx` original (fondo blanco) fue eliminada del flujo.
+**Clients (marquee de logos)** — `components/sections/Clients.tsx` — sección después de Solutions, muestra logos de clientes en marquee horizontal infinito (derecha→izquierda). Fondo `bg-primary`, logos blancos (`brightness(0) invert(1)`), opacidad 40→90 en hover. Loop seamless: `base = clients × 4` (garantiza ancho > cualquier viewport), `logos = base × 2`, anima `translateX(-50%)` = exactamente el ancho del `base`. Keyframe `clients-marquee` y clases `.clients-marquee-track` / `.clients-marquee-wrap` definidos en `globals.css` (una sola vez para evitar conflictos si se usa más de una instancia). Velocidad: 40s por ciclo. Para agregar logos: añadir objetos `{ name, src }` al array `clients` — el resto escala automáticamente.
+
+**Verticals (Partners estratégicos)** — `components/sections/Verticals.tsx` — muestra los partners estratégicos (Nueva Era, Tienda, Dux). Fondo `#0f0f24`, padding `py-32 md:py-40`, título con `text-accent`, logos blancos con hover de opacidad. Posicionada al final del flujo antes de FAQ. La sección `Partners.tsx` original (fondo blanco) fue eliminada del flujo.
 
 **Footer** — usa `<Image src="/logosvg.svg">` en lugar de texto para la marca GannetLabs.
