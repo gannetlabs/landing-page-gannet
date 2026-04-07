@@ -39,7 +39,8 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 - `on-surface` / `on-surface-variant` — text on light cards
 - Alternating dark section backgrounds: `bg-primary` (#0a0a1a) and inline `style={{ background: "#0f0f24" }}`
 - Dark cards use `.card-glass` (defined in `globals.css`) — do NOT use inline `style={{ background: "#002812" }}` for new cards
-- Light cards (Solutions cards, ContactCTA) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
+- Light cards (ContactCTA form) keep `bg-surface-container-lowest` — do NOT apply `.card-glass` to them (legibility)
+- Solutions cards now use `.card-glass` (dark) — updated from the previous light card style
 
 **Design rules:**
 
@@ -61,11 +62,11 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 
 **Animations** — Reusable Framer Motion variants are in `lib/animations.ts` (`fadeUp`, `fadeIn`, `staggerContainer`, `slideInLeft`, `scaleIn`). Don't create new variants inline; add them there if needed.
 
-**GannetBirdAnimation** — `components/ui/GannetBirdAnimation.tsx` — componente reutilizable que anima el isotipo SVG del pájaro verde (`app/icon.svg`). Secuencia: stroke draw (pathLength 0→1, 1.4s, solo la primera vez) → fill reveal (delay 1.1s) → float loop (y + rotación suave) + pulse glow. Los loops infinitos usan `useInView` con `once: false`: se pausan cuando el componente sale del viewport y reanudan al volver, liberando GPU. Al tipar transiciones con `Transition` de Framer Motion v12, usar `import { type Transition } from "framer-motion"` para evitar errores de TypeScript con el tipo `ease`. Acepta prop `size` (número, default 140). Actualmente usado en la sección Solutions como elemento decorativo en la columna izquierda (`size={300}`). El `viewBox` del SVG es `"210 0 150 145"`.
+**GannetBirdAnimation** — `components/ui/GannetBirdAnimation.tsx` — componente reutilizable que anima el isotipo SVG del pájaro verde (`app/icon.svg`). Secuencia: stroke draw (pathLength 0→1, 1.4s, solo la primera vez) → fill reveal (delay 1.1s) → float loop (y + rotación suave) + pulse glow. Los loops infinitos usan `useInView` con `once: false`: se pausan cuando el componente sale del viewport y reanudan al volver, liberando GPU. Al tipar transiciones con `Transition` de Framer Motion v12, usar `import { type Transition } from "framer-motion"` para evitar errores de TypeScript con el tipo `ease`. Acepta prop `size` (número, default 140). Actualmente usado en el Hero como visual principal de marca (`size={400}`) en la columna derecha. El `viewBox` del SVG es `"210 0 150 145"`.
 
-**Solutions layout** — sección dividida en 2 columnas (`lg:grid lg:grid-cols-2`). Columna izquierda: `lg:sticky lg:top-0 lg:h-screen lg:flex lg:items-center` — título, descripción y `GannetBirdAnimation` centrados verticalmente mientras las cards scrollean. Columna derecha: 8 cards apiladas (`flex flex-col gap-5`) con iconos `size={48}` igual que Problems.
+**Solutions layout** — carrusel horizontal draggable (`drag="x"` de Framer Motion). Header con título + flechas prev/next. Cards de `340px` de ancho con `.card-glass`, apiladas en fila. Cada card: icono (`size={40}`, `text-accent/40 → text-accent` en hover) → título → descripción (`flex-1`) → tags → separador → precio mensual (`desde $XXX USD /mes`) → CTA "Cotizar solución" → `#contacto`. Snap al card más cercano en `onDragEnd`. Barra de progreso animada + dots indicadores. Para agregar soluciones: añadir al array `solutions` con `{ icon, title, description, tags, price }`.
 
-**Hero / Spline 3D** — `components/sections/Hero.tsx` — el canvas WebGL de Spline se carga después del evento `window.load` (`showSpline` state) Y solo se monta cuando la sección Hero está en el viewport (`heroInView` via `useInView once:false, margin:"200px"`). Al salir del viewport se desmonta, liberando el loop de render WebGL y la GPU.
+**Hero** — `components/sections/Hero.tsx` — layout de 2 columnas en desktop (`lg:grid-cols-2`). Izquierda: badge con dot animado (`animate-pulse`), H1, descripción, CTAs, stats de social proof (separados por `border-t border-white/[0.06]`). Derecha: `GannetBirdAnimation size={400}` como visual de marca, con dos anillos decorativos concéntricos (`border-accent/7` y `/4`), 6 floating tech pills (`n8n`, `GPT-4`, etc.) con float animations individuales y `whileHover` con glow verde (`boxShadow` ring + glow difuso, `borderColor accent/60`, `color accent`). Scroll indicator animado (bounce) al fondo. En mobile la columna derecha está oculta (`hidden lg:flex`). Sin dependencias externas de 3D/WebGL.
 
 **FAQ accordion** — `components/sections/FAQ.tsx` — NO usar `AnimatePresence` con `height: "auto"` en Framer Motion v12: crashea Safari/WebKit durante el exit animation. El acordeón usa `max-height` CSS con `transition-all duration-300` (`0px` ↔ `400px`) + `opacity` inline. Mismo efecto visual, sin dependencia de medición DOM en tiempo de desmontaje.
 
@@ -77,4 +78,12 @@ Always use `font-display` on headings (`h1`–`h3`) and `font-sans` (default) on
 
 **Verticals (Partners estratégicos)** — `components/sections/Verticals.tsx` — muestra los partners estratégicos (Nueva Era, Tienda, Dux). Fondo `#0f0f24`, padding `py-32 md:py-40`, título con `text-accent`, logos blancos con hover de opacidad. Posicionada al final del flujo antes de FAQ. La sección `Partners.tsx` original (fondo blanco) fue eliminada del flujo.
 
-**Footer** — usa `<Image src="/logosvg.svg">` en lugar de texto para la marca GannetLabs.
+**WhyGannet** — `components/sections/WhyGannet.tsx` — grid 2×2 de cards `.card-glass` (igual que Problems). Icono `size={48}` con `text-accent/20 → text-accent/70` en hover. Agrega label de sección `"Por qué GannetLabs"` en `text-accent/70 uppercase tracking-widest` sobre el heading.
+
+**HowWeWork** — `components/sections/HowWeWork.tsx` — 4 cards `.card-glass` en grid. Cada card tiene: (1) watermark numérico gigante (`8rem`) posicionado `absolute -bottom-4 -right-2` con `text-white/[0.04]` que sube a `text-white/[0.07]` en hover — `overflow-hidden` en el card para recortarlo; (2) label pequeño `"PASO 01"` en `text-accent/60 tracking-widest text-xs`; (3) título y descripción en `relative z-10` sobre el watermark.
+
+**Problems** — `components/sections/Problems.tsx` — 4 cards `.card-glass`. Cada card tiene `relative overflow-hidden` y un watermark numérico (`01`–`04`) `absolute -bottom-3 -right-1` en `text-white/[0.04]` con `fontSize: "7rem"`. Iconos e contenido en `relative z-10`.
+
+**ContactCTA** — `components/sections/ContactCTA.tsx` — sección 2 columnas. Columna izquierda incluye bloque de WhatsApp con `border-t border-white/[0.07]` al fondo: link directo con `MessageCircle` icon y `ArrowRight` animado en hover (`group/wa`).
+
+**Footer** — usa `<Image src="/logosvg.svg">` en lugar de texto para la marca GannetLabs. Separador superior con gradiente verde centrado: `linear-gradient(to right, transparent, rgba(125,218,154,0.25), transparent)`.
