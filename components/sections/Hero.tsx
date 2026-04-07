@@ -36,7 +36,6 @@ const floatingTags = [
   { label: "Vercel",     style: { bottom: "13%", left: "36%"  }, floatDur: 3.8, floatDelay: 3.1, glowDur: 11, glowDelay: 6.0 },
   // Right zone (around/near bird and rings)
   { label: "n8n",        style: { top: "8%",     right: "26%" }, floatDur: 3.2, floatDelay: 0.0, glowDur: 10, glowDelay: 1.2 },
-  { label: "HubSpot",    style: { top: "52%",    right: "23%" }, floatDur: 3.4, floatDelay: 2.0, glowDur:  9, glowDelay: 4.5 },
   { label: "Next.js",    style: { bottom: "22%", right: "25%" }, floatDur: 3.6, floatDelay: 1.6, glowDur: 11, glowDelay: 7.8 },
   { label: "LangChain",  style: { top: "17%",    right: "19%" }, floatDur: 3.9, floatDelay: 0.7, glowDur: 11, glowDelay: 2.5 },
   { label: "Zapier",     style: { top: "22%",    right: "4%"  }, floatDur: 4.1, floatDelay: 0.9, glowDur:  9, glowDelay: 8.1 },
