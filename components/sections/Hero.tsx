@@ -25,10 +25,7 @@ const rings = [
 // floatDur/floatDelay: float animation. glowDur/glowDelay: auto-illuminate cycle.
 // Fixed values to avoid hydration mismatch.
 const floatingTags = [
-  // Left zone (behind / alongside title copy)
-  { label: "n8n",        style: { top: "11%",    left: "2%"   }, floatDur: 3.2, floatDelay: 0.0, glowDur: 10, glowDelay: 1.2 },
-  { label: "HubSpot",    style: { top: "33%",    left: "1%"   }, floatDur: 3.4, floatDelay: 2.0, glowDur:  9, glowDelay: 4.5 },
-  { label: "Next.js",    style: { top: "55%",    left: "3%"   }, floatDur: 3.6, floatDelay: 1.6, glowDur: 11, glowDelay: 7.8 },
+  // (n8n, HubSpot, Next.js moved to right zone — see below)
   { label: "Make",       style: { bottom: "26%", left: "6%"   }, floatDur: 3.9, floatDelay: 1.4, glowDur: 10, glowDelay: 2.9 },
   { label: "Webhooks",   style: { bottom: "9%",  left: "17%"  }, floatDur: 3.5, floatDelay: 1.7, glowDur: 12, glowDelay: 6.3 },
   // Center zone (cross between columns, some behind title)
@@ -38,6 +35,9 @@ const floatingTags = [
   { label: "Supabase",   style: { bottom: "43%", left: "41%"  }, floatDur: 3.5, floatDelay: 1.8, glowDur: 10, glowDelay: 3.9 },
   { label: "Vercel",     style: { bottom: "13%", left: "36%"  }, floatDur: 3.8, floatDelay: 3.1, glowDur: 11, glowDelay: 6.0 },
   // Right zone (around/near bird and rings)
+  { label: "n8n",        style: { top: "8%",     right: "26%" }, floatDur: 3.2, floatDelay: 0.0, glowDur: 10, glowDelay: 1.2 },
+  { label: "HubSpot",    style: { top: "52%",    right: "23%" }, floatDur: 3.4, floatDelay: 2.0, glowDur:  9, glowDelay: 4.5 },
+  { label: "Next.js",    style: { bottom: "22%", right: "25%" }, floatDur: 3.6, floatDelay: 1.6, glowDur: 11, glowDelay: 7.8 },
   { label: "LangChain",  style: { top: "17%",    right: "19%" }, floatDur: 3.9, floatDelay: 0.7, glowDur: 11, glowDelay: 2.5 },
   { label: "Zapier",     style: { top: "22%",    right: "4%"  }, floatDur: 4.1, floatDelay: 0.9, glowDur:  9, glowDelay: 8.1 },
   { label: "FastAPI",    style: { top: "40%",    right: "13%" }, floatDur: 4.1, floatDelay: 1.3, glowDur:  9, glowDelay: 5.1 },
@@ -166,7 +166,7 @@ export default function Hero() {
             {/* Social proof stats */}
             <motion.div
               variants={fadeUp}
-              className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-white/[0.06] pt-8"
+              className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-white/[0.12] pt-8"
             >
               {stats.map((stat) => (
                 <div key={stat.label} className="flex flex-col gap-0.5">
@@ -176,7 +176,7 @@ export default function Hero() {
                   >
                     {stat.value}
                   </span>
-                  <span className="text-white/35 text-xs">{stat.label}</span>
+                  <span className="text-white/55 text-xs">{stat.label}</span>
                 </div>
               ))}
             </motion.div>
