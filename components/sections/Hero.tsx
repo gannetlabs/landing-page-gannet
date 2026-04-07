@@ -12,29 +12,33 @@ const stats = [
   { value: "1 semana", label: "primeros resultados" },
 ];
 
-// Rings: inner → outer
+// Rings centered at right-column center (75% of max-w container).
+// Sizes large enough to bleed across the full section width.
 const rings = [
-  { size: 180, baseOpacity: 0.14, hoverOpacity: 0.45, delay: 0    },
-  { size: 280, baseOpacity: 0.09, hoverOpacity: 0.28, delay: 0.05 },
-  { size: 390, baseOpacity: 0.06, hoverOpacity: 0.18, delay: 0.10 },
-  { size: 500, baseOpacity: 0.04, hoverOpacity: 0.12, delay: 0.15 },
-  { size: 620, baseOpacity: 0.02, hoverOpacity: 0.07, delay: 0.20 },
+  { size: 380,  opacity: 0.16  },
+  { size: 620,  opacity: 0.10  },
+  { size: 900,  opacity: 0.065 },
+  { size: 1180, opacity: 0.038 },
+  { size: 1500, opacity: 0.020 },
 ];
 
-// 12 tags — valores fijos para evitar hydration mismatch
+// 12 tags spread across the full hero width — fixed values to avoid hydration mismatch.
+// Left zone: behind / alongside the title copy.
+// Center zone: in the gap between columns.
+// Right zone: around the bird.
 const floatingTags = [
-  { label: "n8n",        style: { top: "7%",     left: "3%"   }, dy: 8,  duration: 3.2, delay: 0.0 },
-  { label: "GPT-4",      style: { top: "5%",     right: "5%"  }, dy: 6,  duration: 4.0, delay: 1.1 },
-  { label: "HubSpot",    style: { top: "22%",    left: "5%"   }, dy: 7,  duration: 3.4, delay: 2.0 },
-  { label: "Zapier",     style: { top: "26%",    right: "2%"  }, dy: 8,  duration: 4.1, delay: 0.9 },
-  { label: "Next.js",    style: { top: "46%",    left: "1%"   }, dy: 6,  duration: 3.6, delay: 1.6 },
-  { label: "APIs",       style: { top: "44%",    right: "1%"  }, dy: 5,  duration: 4.2, delay: 0.3 },
-  { label: "Shopify",    style: { bottom: "34%", left: "0%"   }, dy: 9,  duration: 3.7, delay: 0.6 },
-  { label: "Python",     style: { bottom: "32%", right: "3%"  }, dy: 7,  duration: 4.3, delay: 1.9 },
-  { label: "Make",       style: { bottom: "20%", left: "8%"   }, dy: 10, duration: 3.9, delay: 1.4 },
-  { label: "PostgreSQL", style: { bottom: "18%", right: "6%"  }, dy: 9,  duration: 3.3, delay: 0.5 },
-  { label: "Webhooks",   style: { bottom: "7%",  left: "18%"  }, dy: 7,  duration: 3.5, delay: 1.7 },
-  { label: "Docker",     style: { bottom: "5%",  right: "14%" }, dy: 5,  duration: 3.8, delay: 0.8 },
+  { label: "n8n",        style: { top: "11%",    left: "2%"   }, dy: 8,  duration: 3.2, delay: 0.0 },
+  { label: "HubSpot",    style: { top: "33%",    left: "1%"   }, dy: 7,  duration: 3.4, delay: 2.0 },
+  { label: "Next.js",    style: { top: "55%",    left: "3%"   }, dy: 6,  duration: 3.6, delay: 1.6 },
+  { label: "Make",       style: { bottom: "26%", left: "6%"   }, dy: 10, duration: 3.9, delay: 1.4 },
+  { label: "Webhooks",   style: { bottom: "9%",  left: "17%"  }, dy: 7,  duration: 3.5, delay: 1.7 },
+  { label: "GPT-4",      style: { top: "6%",     left: "31%"  }, dy: 6,  duration: 4.0, delay: 1.1 },
+  { label: "Python",     style: { bottom: "26%", left: "28%"  }, dy: 7,  duration: 4.3, delay: 1.9 },
+  { label: "Zapier",     style: { top: "22%",    right: "4%"  }, dy: 8,  duration: 4.1, delay: 0.9 },
+  { label: "APIs",       style: { top: "47%",    right: "2%"  }, dy: 5,  duration: 4.2, delay: 0.3 },
+  { label: "Shopify",    style: { bottom: "34%", right: "2%"  }, dy: 9,  duration: 3.7, delay: 0.6 },
+  { label: "PostgreSQL", style: { bottom: "16%", right: "7%"  }, dy: 9,  duration: 3.3, delay: 0.5 },
+  { label: "Docker",     style: { bottom: "6%",  right: "15%" }, dy: 5,  duration: 3.8, delay: 0.8 },
 ];
 
 export default function Hero() {
@@ -56,13 +60,77 @@ export default function Hero() {
         }}
       />
 
+      {/* ── Rings layer — full section, centered at right-col center, static ── */}
+      <div
+        className="absolute inset-0 z-[1] pointer-events-none"
+        aria-hidden="true"
+        style={{ overflow: "hidden" }}
+      >
+        {/* Anchor inside the same max-w container so `left: 75%` aligns with bird */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full relative">
+          <div
+            style={{
+              position: "absolute",
+              left: "75%",
+              top: "50%",
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            {rings.map((ring) => (
+              <div
+                key={ring.size}
+                style={{
+                  position: "absolute",
+                  width: ring.size,
+                  height: ring.size,
+                  left: -ring.size / 2,
+                  top: -ring.size / 2,
+                  borderRadius: "50%",
+                  border: `1px solid rgba(125,218,154,${ring.opacity})`,
+                }}
+              />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Floating tags layer — full section width, z-[2], behind copy ── */}
+      <div className="absolute inset-0 z-[2] pointer-events-none" aria-hidden="false">
+        {floatingTags.map((tag, i) => (
+          <motion.span
+            key={`${tag.label}-${i}`}
+            className="absolute px-3 py-1.5 bg-white/[0.04] border border-white/[0.09] rounded-full text-white/40 text-xs font-medium cursor-pointer pointer-events-auto"
+            style={tag.style}
+            animate={{ y: [0, -tag.dy, 0] }}
+            transition={{
+              duration: tag.duration,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: tag.delay,
+            }}
+            whileHover={{
+              color: "#7dda9a",
+              borderColor: "rgba(125,218,154,0.6)",
+              backgroundColor: "rgba(125,218,154,0.08)",
+              boxShadow:
+                "0 0 0 3px rgba(125,218,154,0.15), 0 0 16px rgba(125,218,154,0.25)",
+              scale: 1.08,
+              transition: { duration: 0.2 },
+            }}
+          >
+            {tag.label}
+          </motion.span>
+        ))}
+      </div>
+
       {/* Bottom fade into next section */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-48 z-0 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 z-[3] pointer-events-none"
         aria-hidden="true"
         style={{ background: "linear-gradient(to bottom, transparent, #0a0a1a)" }}
       />
 
+      {/* ── Main content — z-10 (above rings & tags) ── */}
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32 md:py-40 w-full">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
 
@@ -123,7 +191,7 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* ── Right: brand visual ── */}
+          {/* ── Right: bird visual ── */}
           <motion.div
             className="hidden lg:flex items-center justify-center relative min-h-[520px] cursor-crosshair"
             initial={{ opacity: 0 }}
@@ -136,9 +204,7 @@ export default function Hero() {
             <motion.div
               className="absolute inset-0 pointer-events-none"
               aria-hidden="true"
-              animate={{
-                opacity: birdHovered ? 1.8 : 1,
-              }}
+              animate={{ opacity: birdHovered ? 1.8 : 1 }}
               transition={{ duration: 0.6 }}
               style={{
                 background:
@@ -146,62 +212,7 @@ export default function Hero() {
               }}
             />
 
-            {/* Concentric rings — se iluminan en hover */}
-            {rings.map((ring, i) => (
-              <motion.div
-                key={ring.size}
-                className="absolute rounded-full pointer-events-none"
-                style={{ width: ring.size, height: ring.size }}
-                animate={
-                  birdHovered
-                    ? {
-                        borderColor: `rgba(125,218,154,${ring.hoverOpacity})`,
-                        boxShadow: `0 0 ${12 + i * 4}px rgba(125,218,154,${ring.hoverOpacity * 0.3})`,
-                        scale: 1 + i * 0.008,
-                      }
-                    : {
-                        borderColor: `rgba(125,218,154,${ring.baseOpacity})`,
-                        boxShadow: "0 0 0px rgba(125,218,154,0)",
-                        scale: 1,
-                      }
-                }
-                transition={{ duration: 0.5, delay: ring.delay, ease: "easeOut" }}
-                initial={{
-                  borderWidth: 1,
-                  borderStyle: "solid",
-                  borderColor: `rgba(125,218,154,${ring.baseOpacity})`,
-                }}
-              />
-            ))}
-
-            {/* Floating tech tags */}
-            {floatingTags.map((tag, i) => (
-              <motion.span
-                key={`${tag.label}-${i}`}
-                className="absolute px-3 py-1.5 bg-white/[0.04] border border-white/[0.09] rounded-full text-white/40 text-xs font-medium cursor-pointer"
-                style={tag.style}
-                animate={{ y: [0, -tag.dy, 0] }}
-                transition={{
-                  duration: tag.duration,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                  delay: tag.delay,
-                }}
-                whileHover={{
-                  color: "#7dda9a",
-                  borderColor: "rgba(125,218,154,0.6)",
-                  backgroundColor: "rgba(125,218,154,0.08)",
-                  boxShadow:
-                    "0 0 0 3px rgba(125,218,154,0.15), 0 0 16px rgba(125,218,154,0.25)",
-                  scale: 1.08,
-                  transition: { duration: 0.2 },
-                }}
-              >
-                {tag.label}
-              </motion.span>
-            ))}
-
-            {/* The bird — static until hover */}
+            {/* The bird */}
             <GannetBirdAnimation size={400} hovered={birdHovered} />
           </motion.div>
         </div>
