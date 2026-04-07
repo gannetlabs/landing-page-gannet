@@ -249,7 +249,7 @@ export default function Solutions() {
                       <div className="border-t border-white/[0.07] pt-5">
                         {/* Price */}
                         <div className="mb-5">
-                          <span className="block text-white/25 text-xs font-medium uppercase tracking-widest mb-1">
+                          <span className="block text-white/35 text-xs mb-1">
                             desde
                           </span>
                           {/* Number — breaks out of px-7 to fill full card width */}
@@ -265,8 +265,8 @@ export default function Solutions() {
                               ${solution.price}
                             </span>
                           </div>
-                          <span className="block text-white/[0.18] text-xs font-semibold uppercase tracking-[0.18em] mt-2">
-                            USD / MES
+                          <span className="block text-white/35 text-xs mt-2">
+                            usd / mes
                           </span>
                         </div>
 
