@@ -262,7 +262,7 @@ export default function Solutions() {
                                 paddingLeft: "1.75rem",
                               }}
                             >
-                              {solution.price}
+                              ${solution.price}
                             </span>
                           </div>
                           <span className="block text-white/[0.18] text-xs font-semibold uppercase tracking-[0.18em] mt-2">
