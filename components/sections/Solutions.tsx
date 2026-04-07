@@ -249,14 +249,24 @@ export default function Solutions() {
                       <div className="border-t border-white/[0.07] pt-5">
                         {/* Price */}
                         <div className="mb-5">
-                          <span className="block text-white/30 text-xs font-medium uppercase tracking-widest mb-1">
+                          <span className="block text-white/25 text-xs font-medium uppercase tracking-widest mb-1">
                             desde
                           </span>
-                          <span
-                            className="font-display font-bold text-white/[0.10] leading-none block"
-                            style={{ fontSize: "3.25rem", letterSpacing: "-0.03em" }}
-                          >
-                            ${solution.price} USD/MES
+                          {/* Number — breaks out of px-7 to fill full card width */}
+                          <div className="-mx-7 overflow-hidden leading-none">
+                            <span
+                              className="font-display font-bold text-white/[0.10] leading-none block"
+                              style={{
+                                fontSize: "8rem",
+                                letterSpacing: "-0.05em",
+                                paddingLeft: "1.75rem",
+                              }}
+                            >
+                              {solution.price}
+                            </span>
+                          </div>
+                          <span className="block text-white/[0.18] text-xs font-semibold uppercase tracking-[0.18em] mt-2">
+                            USD / MES
                           </span>
                         </div>
 
