@@ -32,7 +32,7 @@ const solutions = [
     description:
       "Eliminamos las tareas que se hacen a mano todos los días: notificaciones, reportes, sincronización de datos y seguimiento. Menos operación repetitiva, más tiempo para lo que importa.",
     tags: ["n8n", "Make", "Webhooks", "Zapier"],
-    price: "$300 USD",
+    price: "$150 USD",
   },
   {
     icon: ShoppingCart,
@@ -40,7 +40,7 @@ const solutions = [
     description:
       "Tiendas online integradas con stock, facturación, logística y CRM. Que vender online signifique más ventas, no más trabajo manual.",
     tags: ["Shopify", "WooCommerce", "APIs", "Pagos"],
-    price: "$500 USD",
+    price: "$200 USD",
   },
   {
     icon: Globe,
@@ -48,7 +48,7 @@ const solutions = [
     description:
       "Sitios rápidos, bien posicionados y conectados a tus procesos de negocio. No solo una vidriera digital: un sitio que captura leads y genera oportunidades reales.",
     tags: ["Next.js", "SEO", "CMS", "Analytics"],
-    price: "$350 USD",
+    price: "$80 USD",
   },
   {
     icon: MessageSquare,
@@ -56,7 +56,7 @@ const solutions = [
     description:
       "Bots entrenados con tu información que responden preguntas, califican leads y derivan casos complejos a tu equipo. Atención 24/7 sin escalar el headcount.",
     tags: ["WhatsApp", "Web chat", "LLM", "Handoff"],
-    price: "$400 USD",
+    price: "$200 USD",
   },
   {
     icon: BarChart2,
@@ -64,7 +64,7 @@ const solutions = [
     description:
       "Centralizamos tus datos dispersos en un solo lugar y los convertimos en visualizaciones claras. Tomás decisiones con información real, no con Excel desactualizado.",
     tags: ["Metabase", "Power BI", "SQL", "ETL"],
-    price: "$300 USD",
+    price: "$150 USD",
   },
   {
     icon: Users,
@@ -72,7 +72,7 @@ const solutions = [
     description:
       "Implementamos y personalizamos tu CRM para que tu equipo comercial trabaje con contexto completo. Seguimiento de oportunidades, historial y automatización del pipeline.",
     tags: ["HubSpot", "Pipedrive", "Salesforce", "Custom"],
-    price: "$450 USD",
+    price: "$200 USD",
   },
   {
     icon: Code2,
@@ -80,7 +80,7 @@ const solutions = [
     description:
       "Cuando ninguna herramienta existente resuelve exactamente tu problema, construimos la solución desde cero. Aplicaciones web internas, portales de clientes y herramientas operativas.",
     tags: ["Next.js", "Node.js", "PostgreSQL", "APIs"],
-    price: "$1.200 USD",
+    price: "$500 USD",
   },
 ];
 
@@ -257,6 +257,9 @@ export default function Solutions() {
                             style={{ letterSpacing: "-0.02em" }}
                           >
                             {solution.price}
+                          </span>
+                          <span className="text-white/30 text-sm font-medium">
+                            /mes
                           </span>
                         </div>
 
