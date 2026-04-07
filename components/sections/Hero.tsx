@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -22,28 +21,34 @@ const rings = [
   { size: 1500, opacity: 0.020 },
 ];
 
-// 12 tags spread across the full hero width — fixed values to avoid hydration mismatch.
-// Left zone: behind / alongside the title copy.
-// Center zone: in the gap between columns.
-// Right zone: around the bird.
+// 18 tags spread full-width — CSS animated (no Framer Motion on tags).
+// floatDur/floatDelay: float animation. glowDur/glowDelay: auto-illuminate cycle.
+// Fixed values to avoid hydration mismatch.
 const floatingTags = [
-  { label: "n8n",        style: { top: "11%",    left: "2%"   }, dy: 8,  duration: 3.2, delay: 0.0 },
-  { label: "HubSpot",    style: { top: "33%",    left: "1%"   }, dy: 7,  duration: 3.4, delay: 2.0 },
-  { label: "Next.js",    style: { top: "55%",    left: "3%"   }, dy: 6,  duration: 3.6, delay: 1.6 },
-  { label: "Make",       style: { bottom: "26%", left: "6%"   }, dy: 10, duration: 3.9, delay: 1.4 },
-  { label: "Webhooks",   style: { bottom: "9%",  left: "17%"  }, dy: 7,  duration: 3.5, delay: 1.7 },
-  { label: "GPT-4",      style: { top: "6%",     left: "31%"  }, dy: 6,  duration: 4.0, delay: 1.1 },
-  { label: "Python",     style: { bottom: "26%", left: "28%"  }, dy: 7,  duration: 4.3, delay: 1.9 },
-  { label: "Zapier",     style: { top: "22%",    right: "4%"  }, dy: 8,  duration: 4.1, delay: 0.9 },
-  { label: "APIs",       style: { top: "47%",    right: "2%"  }, dy: 5,  duration: 4.2, delay: 0.3 },
-  { label: "Shopify",    style: { bottom: "34%", right: "2%"  }, dy: 9,  duration: 3.7, delay: 0.6 },
-  { label: "PostgreSQL", style: { bottom: "16%", right: "7%"  }, dy: 9,  duration: 3.3, delay: 0.5 },
-  { label: "Docker",     style: { bottom: "6%",  right: "15%" }, dy: 5,  duration: 3.8, delay: 0.8 },
+  // Left zone (behind / alongside title copy)
+  { label: "n8n",        style: { top: "11%",    left: "2%"   }, floatDur: 3.2, floatDelay: 0.0, glowDur: 10, glowDelay: 1.2 },
+  { label: "HubSpot",    style: { top: "33%",    left: "1%"   }, floatDur: 3.4, floatDelay: 2.0, glowDur:  9, glowDelay: 4.5 },
+  { label: "Next.js",    style: { top: "55%",    left: "3%"   }, floatDur: 3.6, floatDelay: 1.6, glowDur: 11, glowDelay: 7.8 },
+  { label: "Make",       style: { bottom: "26%", left: "6%"   }, floatDur: 3.9, floatDelay: 1.4, glowDur: 10, glowDelay: 2.9 },
+  { label: "Webhooks",   style: { bottom: "9%",  left: "17%"  }, floatDur: 3.5, floatDelay: 1.7, glowDur: 12, glowDelay: 6.3 },
+  // Center zone (cross between columns, some behind title)
+  { label: "GPT-4",      style: { top: "6%",     left: "31%"  }, floatDur: 4.0, floatDelay: 1.1, glowDur:  9, glowDelay: 0.4 },
+  { label: "Python",     style: { bottom: "26%", left: "28%"  }, floatDur: 4.3, floatDelay: 1.9, glowDur: 11, glowDelay: 5.7 },
+  { label: "TypeScript", style: { top: "10%",    left: "44%"  }, floatDur: 4.2, floatDelay: 0.4, glowDur: 12, glowDelay: 7.3 },
+  { label: "Supabase",   style: { bottom: "43%", left: "41%"  }, floatDur: 3.5, floatDelay: 1.8, glowDur: 10, glowDelay: 3.9 },
+  { label: "Vercel",     style: { bottom: "13%", left: "36%"  }, floatDur: 3.8, floatDelay: 3.1, glowDur: 11, glowDelay: 6.0 },
+  // Right zone (around/near bird and rings)
+  { label: "LangChain",  style: { top: "17%",    right: "19%" }, floatDur: 3.9, floatDelay: 0.7, glowDur: 11, glowDelay: 2.5 },
+  { label: "Zapier",     style: { top: "22%",    right: "4%"  }, floatDur: 4.1, floatDelay: 0.9, glowDur:  9, glowDelay: 8.1 },
+  { label: "FastAPI",    style: { top: "40%",    right: "13%" }, floatDur: 4.1, floatDelay: 1.3, glowDur:  9, glowDelay: 5.1 },
+  { label: "APIs",       style: { top: "47%",    right: "2%"  }, floatDur: 4.2, floatDelay: 0.3, glowDur: 10, glowDelay: 0.9 },
+  { label: "Redis",      style: { top: "62%",    right: "17%" }, floatDur: 3.7, floatDelay: 2.2, glowDur: 10, glowDelay: 0.8 },
+  { label: "Shopify",    style: { bottom: "34%", right: "2%"  }, floatDur: 3.7, floatDelay: 0.6, glowDur: 11, glowDelay: 3.3 },
+  { label: "PostgreSQL", style: { bottom: "16%", right: "7%"  }, floatDur: 3.3, floatDelay: 0.5, glowDur:  9, glowDelay: 1.6 },
+  { label: "Docker",     style: { bottom: "6%",  right: "15%" }, floatDur: 3.8, floatDelay: 0.8, glowDur: 12, glowDelay: 4.8 },
 ];
 
 export default function Hero() {
-  const [birdHovered, setBirdHovered] = useState(false);
-
   return (
     <section
       id="inicio"
@@ -66,7 +71,6 @@ export default function Hero() {
         aria-hidden="true"
         style={{ overflow: "hidden" }}
       >
-        {/* Anchor inside the same max-w container so `left: 75%` aligns with bird */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full relative">
           <div
             style={{
@@ -94,32 +98,19 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* ── Floating tags layer — full section width, z-[2], behind copy ── */}
-      <div className="absolute inset-0 z-[2] pointer-events-none" aria-hidden="false">
-        {floatingTags.map((tag, i) => (
-          <motion.span
-            key={`${tag.label}-${i}`}
-            className="absolute px-3 py-1.5 bg-white/[0.04] border border-white/[0.09] rounded-full text-white/40 text-xs font-medium cursor-pointer pointer-events-auto"
-            style={tag.style}
-            animate={{ y: [0, -tag.dy, 0] }}
-            transition={{
-              duration: tag.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: tag.delay,
-            }}
-            whileHover={{
-              color: "#7dda9a",
-              borderColor: "rgba(125,218,154,0.6)",
-              backgroundColor: "rgba(125,218,154,0.08)",
-              boxShadow:
-                "0 0 0 3px rgba(125,218,154,0.15), 0 0 16px rgba(125,218,154,0.25)",
-              scale: 1.08,
-              transition: { duration: 0.2 },
+      {/* ── Floating tags layer — CSS animated, full section width, z-[2] ── */}
+      <div className="absolute inset-0 z-[2] pointer-events-none" aria-hidden="true">
+        {floatingTags.map((tag) => (
+          <span
+            key={tag.label}
+            className="hero-tag absolute px-3 py-1.5 bg-white/[0.04] border border-white/[0.09] rounded-full text-white/40 text-xs font-medium"
+            style={{
+              ...tag.style,
+              animation: `tag-float ${tag.floatDur}s ease-in-out infinite ${tag.floatDelay}s, tag-glow ${tag.glowDur}s ease-in-out infinite ${tag.glowDelay}s`,
             }}
           >
             {tag.label}
-          </motion.span>
+          </span>
         ))}
       </div>
 
@@ -191,29 +182,25 @@ export default function Hero() {
             </motion.div>
           </motion.div>
 
-          {/* ── Right: bird visual ── */}
+          {/* ── Right: bird visual (static, no hover state) ── */}
           <motion.div
-            className="hidden lg:flex items-center justify-center relative min-h-[520px] cursor-crosshair"
+            className="hidden lg:flex items-center justify-center relative min-h-[520px]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1.2, delay: 0.4 }}
-            onMouseEnter={() => setBirdHovered(true)}
-            onMouseLeave={() => setBirdHovered(false)}
           >
-            {/* Radial ambient glow — se intensifica en hover */}
-            <motion.div
+            {/* Radial ambient glow — static */}
+            <div
               className="absolute inset-0 pointer-events-none"
               aria-hidden="true"
-              animate={{ opacity: birdHovered ? 1.8 : 1 }}
-              transition={{ duration: 0.6 }}
               style={{
                 background:
-                  "radial-gradient(circle at 50% 48%, rgba(125,218,154,0.12) 0%, rgba(125,218,154,0.05) 42%, transparent 68%)",
+                  "radial-gradient(circle at 50% 48%, rgba(125,218,154,0.10) 0%, rgba(125,218,154,0.04) 42%, transparent 68%)",
               }}
             />
 
-            {/* The bird */}
-            <GannetBirdAnimation size={400} hovered={birdHovered} />
+            {/* The bird — whitemark only, no hover */}
+            <GannetBirdAnimation size={400} />
           </motion.div>
         </div>
       </div>
