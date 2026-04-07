@@ -9,43 +9,44 @@ const BIRD_PATH =
 interface GannetBirdAnimationProps {
   size?: number;
   className?: string;
+  hovered?: boolean;
 }
 
 export default function GannetBirdAnimation({
   size = 140,
   className = "",
+  hovered = false,
 }: GannetBirdAnimationProps) {
   const ref = useRef(null);
-  // once: false para detectar tanto entrada como salida del viewport
   const isInView = useInView(ref, { once: false, margin: "0px" });
   const controls = useAnimation();
   const hasDrawn = useRef(false);
 
   useEffect(() => {
-    // La animación de dibujo (stroke draw + fill reveal) solo se ejecuta una vez
+    // Stroke draw + fill reveal — solo la primera vez que entra al viewport
     if (isInView && !hasDrawn.current) {
       controls.start("visible");
       hasDrawn.current = true;
     }
   }, [isInView, controls]);
 
-  // Float: animación infinita cuando está en vista, reposo cuando no
-  const floatAnimate = isInView
+  // Float: solo cuando hovered=true
+  const floatAnimate = hovered
     ? { y: [0, -10, 0], rotate: [-1.5, 1.5, -1.5] }
     : { y: 0, rotate: 0 };
 
-  const floatTransition: Transition = isInView
-    ? { duration: 4, repeat: Infinity, ease: "easeInOut", delay: hasDrawn.current ? 0 : 1.8 }
-    : { duration: 0.6, ease: "easeOut" };
+  const floatTransition: Transition = hovered
+    ? { duration: 3.5, repeat: Infinity, ease: "easeInOut" }
+    : { duration: 0.8, ease: "easeOut" };
 
-  // Pulse glow: mismo comportamiento
-  const pulseAnimate = isInView
-    ? { opacity: [0, 0.35, 0.15, 0.35, 0.15] }
+  // Pulse glow: solo cuando hovered=true
+  const pulseAnimate = hovered
+    ? { opacity: [0, 0.45, 0.15, 0.45, 0.15] }
     : { opacity: 0 };
 
-  const pulseTransition: Transition = isInView
-    ? { duration: 3, repeat: Infinity, ease: "easeInOut", delay: hasDrawn.current ? 0 : 1.8 }
-    : { duration: 0.3 };
+  const pulseTransition: Transition = hovered
+    ? { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
+    : { duration: 0.4 };
 
   return (
     <div
@@ -53,7 +54,6 @@ export default function GannetBirdAnimation({
       className={className}
       style={{ width: size, height: size * (145 / 150) }}
     >
-      {/* Float wrapper — se detiene cuando sale del viewport */}
       <motion.div
         style={{ width: "100%", height: "100%" }}
         animate={floatAnimate}
@@ -66,42 +66,19 @@ export default function GannetBirdAnimation({
           style={{ width: "100%", height: "100%", overflow: "visible" }}
         >
           <defs>
-            {/* Soft green glow */}
-            <filter
-              id="gannet-glow"
-              x="-60%"
-              y="-60%"
-              width="220%"
-              height="220%"
-            >
-              <feGaussianBlur
-                in="SourceGraphic"
-                stdDeviation="8"
-                result="blur"
-              />
+            <filter id="gannet-glow" x="-60%" y="-60%" width="220%" height="220%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
               <feMerge>
                 <feMergeNode in="blur" />
                 <feMergeNode in="SourceGraphic" />
               </feMerge>
             </filter>
-
-            {/* Intense glow for pulse layer */}
-            <filter
-              id="gannet-glow-intense"
-              x="-80%"
-              y="-80%"
-              width="260%"
-              height="260%"
-            >
-              <feGaussianBlur
-                in="SourceGraphic"
-                stdDeviation="14"
-                result="blur"
-              />
+            <filter id="gannet-glow-intense" x="-80%" y="-80%" width="260%" height="260%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="14" result="blur" />
             </filter>
           </defs>
 
-          {/* 1. Pulse glow behind — se detiene cuando sale del viewport */}
+          {/* 1. Pulse glow — activo solo en hover */}
           <motion.path
             d={BIRD_PATH}
             fill="#00EE8E"
@@ -111,7 +88,7 @@ export default function GannetBirdAnimation({
             transition={pulseTransition}
           />
 
-          {/* 2. Stroke draw — traces the outline on enter */}
+          {/* 2. Stroke draw — se traza al montar (una sola vez) */}
           <motion.path
             d={BIRD_PATH}
             fill="transparent"
@@ -123,15 +100,12 @@ export default function GannetBirdAnimation({
             variants={{
               visible: {
                 pathLength: 1,
-                transition: {
-                  duration: 1.4,
-                  ease: [0.4, 0, 0.2, 1],
-                },
+                transition: { duration: 1.4, ease: [0.4, 0, 0.2, 1] },
               },
             }}
           />
 
-          {/* 3. Fill reveal — fades in as stroke finishes */}
+          {/* 3. Fill reveal — aparece al terminar el stroke */}
           <motion.path
             d={BIRD_PATH}
             fill="#00EE8E"
@@ -141,11 +115,7 @@ export default function GannetBirdAnimation({
             variants={{
               visible: {
                 opacity: 1,
-                transition: {
-                  delay: 1.1,
-                  duration: 0.55,
-                  ease: "easeOut",
-                },
+                transition: { delay: 1.1, duration: 0.55, ease: "easeOut" },
               },
             }}
           />
