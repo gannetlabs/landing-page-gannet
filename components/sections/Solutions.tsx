@@ -252,17 +252,12 @@ export default function Solutions() {
                           <span className="block text-white/30 text-xs font-medium uppercase tracking-widest mb-1">
                             desde
                           </span>
-                          <div className="flex items-end gap-1.5 leading-none">
-                            <span
-                              className="font-display font-bold text-accent leading-none"
-                              style={{ fontSize: "3.25rem", letterSpacing: "-0.03em" }}
-                            >
-                              ${solution.price}
-                            </span>
-                            <span className="font-display font-bold text-accent/50 text-lg pb-1">
-                              /MES
-                            </span>
-                          </div>
+                          <span
+                            className="font-display font-bold text-white/[0.10] leading-none block"
+                            style={{ fontSize: "3.25rem", letterSpacing: "-0.03em" }}
+                          >
+                            ${solution.price} USD/MES
+                          </span>
                         </div>
 
                         {/* CTA */}
