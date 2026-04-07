@@ -206,9 +206,16 @@ export default function Solutions() {
                 {solutions.map((solution) => (
                   <div
                     key={solution.title}
-                    className="card-glass group flex flex-col rounded-2xl"
+                    className="card-glass group flex flex-col rounded-2xl relative overflow-hidden"
                     style={{ width: CARD_WIDTH, minWidth: CARD_WIDTH }}
                   >
+                    {/* Watermark price — same style as Problems numbers */}
+                    <span
+                      className="absolute -bottom-5 -right-3 font-display font-bold leading-none select-none pointer-events-none text-white/[0.06] group-hover:text-accent/[0.12] transition-colors duration-300"
+                      style={{ fontSize: "7rem" }}
+                    >
+                      {solution.price.replace(" USD", "")}
+                    </span>
                     {/* Card body */}
                     <div className="p-7 flex flex-col flex-1">
                       {/* Icon */}
@@ -245,20 +252,14 @@ export default function Solutions() {
                     </div>
 
                     {/* Pricing + CTA block */}
-                    <div className="px-7 pb-7">
+                    <div className="px-7 pb-7 relative z-10">
                       <div className="border-t border-white/[0.07] pt-5">
-                        {/* Price */}
-                        <div className="flex items-baseline gap-2 mb-4">
+                        {/* Labels — price value lives in the watermark above */}
+                        <div className="flex items-center gap-2 mb-4">
                           <span className="text-white/30 text-xs font-medium uppercase tracking-widest">
                             desde
                           </span>
-                          <span
-                            className="font-display font-bold text-accent text-2xl"
-                            style={{ letterSpacing: "-0.02em" }}
-                          >
-                            {solution.price}
-                          </span>
-                          <span className="text-white/30 text-sm font-medium">
+                          <span className="text-white/20 text-xs font-medium">
                             /mes
                           </span>
                         </div>
