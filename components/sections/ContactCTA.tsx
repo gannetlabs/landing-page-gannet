@@ -5,7 +5,7 @@ import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { CheckCircle, Loader2, ArrowRight } from "lucide-react";
+import { CheckCircle, Loader2, ArrowRight, MessageCircle } from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const schema = z.object({
@@ -121,6 +121,21 @@ export default function ContactCTA() {
                 <span className="w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
                 Si no podemos ayudarte, te lo decimos directo
               </div>
+            </motion.div>
+
+            {/* WhatsApp shortcut */}
+            <motion.div variants={fadeUp} className="mt-8 pt-8 border-t border-white/[0.07]">
+              <p className="text-white/30 text-xs mb-3">¿Preferís escribirnos directo?</p>
+              <a
+                href="https://wa.me/5491100000000"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2.5 text-sm text-accent/70 hover:text-accent font-medium transition-colors group/wa"
+              >
+                <MessageCircle size={17} />
+                Escribinos por WhatsApp
+                <ArrowRight size={13} className="group-hover/wa:translate-x-0.5 transition-transform duration-200" />
+              </a>
             </motion.div>
           </div>
 

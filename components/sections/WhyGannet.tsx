@@ -46,6 +46,9 @@ export default function WhyGannet() {
           animate={isInView ? "visible" : "hidden"}
         >
           <motion.div variants={fadeUp} className="max-w-2xl">
+            <span className="inline-block text-xs font-semibold tracking-widest text-accent/70 uppercase mb-4">
+              Por qué GannetLabs
+            </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-white leading-tight tracking-tight" style={{ letterSpacing: "-0.02em" }}>
               Tecnología aplicada con{" "}
               <span className="text-accent">criterio de negocio</span>
@@ -58,25 +61,25 @@ export default function WhyGannet() {
 
           <motion.div
             variants={staggerContainer}
-            className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-8"
+            className="mt-16 grid grid-cols-1 sm:grid-cols-2 gap-5"
           >
             {differentiators.map((item) => (
               <motion.div
                 key={item.title}
                 variants={fadeUp}
-                className="flex gap-5"
+                className="card-glass p-8 group relative overflow-hidden"
               >
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center">
-                  <item.icon size={22} className="text-accent" />
-                </div>
-                <div>
-                  <h3 className="font-display font-semibold text-white text-lg mb-2">
-                    {item.title}
-                  </h3>
-                  <p className="text-white/50 text-sm leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+                <item.icon
+                  size={48}
+                  className="text-accent/20 group-hover:text-accent/70 transition-colors duration-300 mb-5"
+                  strokeWidth={1.5}
+                />
+                <h3 className="font-display font-semibold text-white text-lg mb-3 leading-tight">
+                  {item.title}
+                </h3>
+                <p className="text-white/50 text-sm leading-relaxed">
+                  {item.description}
+                </p>
               </motion.div>
             ))}
           </motion.div>

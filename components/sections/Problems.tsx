@@ -69,17 +69,22 @@ export default function Problems() {
             variants={staggerContainer}
             className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
           >
-            {problems.map((problem) => (
+            {problems.map((problem, index) => (
               <motion.div
                 key={problem.title}
                 variants={fadeUp}
-                className="card-glass p-8 group"
+                className="card-glass p-8 group relative overflow-hidden"
               >
-                <problem.icon size={48} className="text-accent/20 group-hover:text-accent/70 transition-colors duration-300 mb-5" strokeWidth={1.5} />
-                <h3 className="font-display text-white font-semibold text-lg mb-3 leading-tight">
+                {/* Watermark number */}
+                <span className="absolute -bottom-3 -right-1 font-display font-bold text-white/[0.04] leading-none select-none pointer-events-none"
+                  style={{ fontSize: "7rem" }}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <problem.icon size={48} className="text-accent/25 group-hover:text-accent/80 transition-colors duration-300 mb-5 relative z-10" strokeWidth={1.5} />
+                <h3 className="font-display text-white font-semibold text-lg mb-3 leading-tight relative z-10">
                   {problem.title}
                 </h3>
-                <p className="text-white/50 text-sm leading-relaxed">
+                <p className="text-white/50 text-sm leading-relaxed relative z-10">
                   {problem.description}
                 </p>
               </motion.div>

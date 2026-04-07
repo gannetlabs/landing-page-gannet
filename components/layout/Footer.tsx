@@ -11,6 +11,14 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer className="bg-primary text-white/50">
+      {/* Top separator with green glow */}
+      <div
+        className="h-px w-full"
+        style={{
+          background:
+            "linear-gradient(to right, transparent 0%, rgba(125,218,154,0.25) 40%, rgba(125,218,154,0.25) 60%, transparent 100%)",
+        }}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {/* Brand */}
