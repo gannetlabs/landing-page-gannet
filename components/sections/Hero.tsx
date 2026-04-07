@@ -70,11 +70,11 @@ export default function Hero() {
           <motion.div variants={staggerContainer} initial="hidden" animate="visible">
             <motion.h1
               variants={fadeUp}
-              className="font-display font-bold text-white leading-[1.05] tracking-tight text-balance"
+              className="font-display font-bold text-white leading-[0.96] tracking-tight text-balance"
               style={{ fontSize: "clamp(2.75rem, 5vw, 4.5rem)", letterSpacing: "-0.03em" }}
             >
-              Tecnología que resuelve{" "}
-              <span className="text-accent">problemas reales</span> de negocio.
+              Tecnología que{" "}
+              <span className="text-accent">resuelve</span> problemas reales de negocio.
             </motion.h1>
 
             <motion.p
