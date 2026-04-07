@@ -2,7 +2,7 @@
 
 import { motion, useInView } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ChevronDown } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useState, useEffect, useRef } from "react";
 
@@ -10,6 +10,12 @@ const Spline = dynamic(() => import("@splinetool/react-spline"), {
   ssr: false,
   loading: () => null,
 });
+
+const stats = [
+  { value: "8+", label: "proyectos entregados" },
+  { value: "3 países", label: "clientes activos" },
+  { value: "1 semana", label: "primeros resultados" },
+];
 
 export default function Hero() {
   const [showSpline, setShowSpline] = useState(false);
@@ -89,7 +95,8 @@ export default function Hero() {
           animate="visible"
         >
           <motion.div variants={fadeUp}>
-            <span className="inline-block px-3 py-1 bg-accent/15 text-accent text-sm font-semibold rounded-full uppercase tracking-wider mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/10 border border-accent/20 text-accent text-xs font-semibold rounded-full uppercase tracking-wider mb-6">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent animate-pulse" />
               IA · AUTOMATIZACIÓN · SOFTWARE A MEDIDA
             </span>
           </motion.div>
@@ -129,6 +136,37 @@ export default function Hero() {
               Ver soluciones
             </a>
           </motion.div>
+
+          {/* Social proof stats */}
+          <motion.div
+            variants={fadeUp}
+            className="mt-12 flex flex-wrap gap-x-8 gap-y-4 border-t border-white/[0.06] pt-8"
+          >
+            {stats.map((stat) => (
+              <div key={stat.label} className="flex flex-col gap-0.5">
+                <span
+                  className="font-display font-bold text-white text-xl leading-none"
+                  style={{ letterSpacing: "-0.02em" }}
+                >
+                  {stat.value}
+                </span>
+                <span className="text-white/35 text-xs">{stat.label}</span>
+              </div>
+            ))}
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-16 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-1.5 pointer-events-none">
+        <span className="text-white/20 text-[10px] font-medium tracking-[0.2em] uppercase">
+          scroll
+        </span>
+        <motion.div
+          animate={{ y: [0, 5, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronDown size={18} className="text-white/20" />
         </motion.div>
       </div>
     </section>

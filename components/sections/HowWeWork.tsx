@@ -65,15 +65,23 @@ export default function HowWeWork() {
               <motion.div
                 key={step.number}
                 variants={fadeUp}
-                className="card-glass p-8 group"
+                className="card-glass p-8 group relative overflow-hidden"
               >
-                <span className="font-display text-5xl font-bold text-accent/20 group-hover:text-accent/70 transition-colors duration-300 leading-none block mb-5">
+                {/* Giant watermark number */}
+                <span
+                  className="absolute -bottom-4 -right-2 font-display font-bold text-white/[0.04] group-hover:text-white/[0.07] transition-colors duration-300 leading-none select-none pointer-events-none"
+                  style={{ fontSize: "8rem" }}
+                >
                   {step.number}
                 </span>
-                <h3 className="font-display text-white font-semibold text-lg mb-3 leading-tight">
+                {/* Small accent step label */}
+                <span className="font-display text-xs font-bold text-accent/60 tracking-widest block mb-5 relative z-10">
+                  PASO {step.number}
+                </span>
+                <h3 className="font-display text-white font-semibold text-lg mb-3 leading-tight relative z-10">
                   {step.title}
                 </h3>
-                <p className="text-white/50 text-sm leading-relaxed">
+                <p className="text-white/50 text-sm leading-relaxed relative z-10">
                   {step.description}
                 </p>
               </motion.div>
