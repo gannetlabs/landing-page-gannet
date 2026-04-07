@@ -3,7 +3,6 @@ import Image from "next/image";
 
 const footerLinks = [
   { label: "Soluciones", href: "#soluciones" },
-  { label: "Partners", href: "#verticales" },
   { label: "Cómo trabajamos", href: "#como-trabajamos" },
   { label: "FAQ", href: "#faq" },
   { label: "Contacto", href: "#contacto" },
