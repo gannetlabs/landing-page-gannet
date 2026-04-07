@@ -2,7 +2,19 @@
 
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useInView, useMotionValue, useTransform } from "framer-motion";
-import { Globe, ShoppingCart, Zap, Brain, MessageSquare, BarChart2, Users, Code2, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  Globe,
+  ShoppingCart,
+  Zap,
+  Brain,
+  MessageSquare,
+  BarChart2,
+  Users,
+  Code2,
+  ChevronLeft,
+  ChevronRight,
+  ArrowRight,
+} from "lucide-react";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 
 const solutions = [
@@ -12,6 +24,7 @@ const solutions = [
     description:
       "Asistentes que atienden consultas, clasifican leads y organizan información. Tableros que muestran lo que pasa en tu negocio. IA que resuelve problemas concretos, no experimentos.",
     tags: ["GPT-4", "Dashboards", "RAG", "Reportes"],
+    price: "$800 USD",
   },
   {
     icon: Zap,
@@ -19,6 +32,7 @@ const solutions = [
     description:
       "Eliminamos las tareas que se hacen a mano todos los días: notificaciones, reportes, sincronización de datos y seguimiento. Menos operación repetitiva, más tiempo para lo que importa.",
     tags: ["n8n", "Make", "Webhooks", "Zapier"],
+    price: "$150 USD",
   },
   {
     icon: ShoppingCart,
@@ -26,6 +40,7 @@ const solutions = [
     description:
       "Tiendas online integradas con stock, facturación, logística y CRM. Que vender online signifique más ventas, no más trabajo manual.",
     tags: ["Shopify", "WooCommerce", "APIs", "Pagos"],
+    price: "$200 USD",
   },
   {
     icon: Globe,
@@ -33,6 +48,7 @@ const solutions = [
     description:
       "Sitios rápidos, bien posicionados y conectados a tus procesos de negocio. No solo una vidriera digital: un sitio que captura leads y genera oportunidades reales.",
     tags: ["Next.js", "SEO", "CMS", "Analytics"],
+    price: "$80 USD",
   },
   {
     icon: MessageSquare,
@@ -40,6 +56,7 @@ const solutions = [
     description:
       "Bots entrenados con tu información que responden preguntas, califican leads y derivan casos complejos a tu equipo. Atención 24/7 sin escalar el headcount.",
     tags: ["WhatsApp", "Web chat", "LLM", "Handoff"],
+    price: "$200 USD",
   },
   {
     icon: BarChart2,
@@ -47,6 +64,7 @@ const solutions = [
     description:
       "Centralizamos tus datos dispersos en un solo lugar y los convertimos en visualizaciones claras. Tomás decisiones con información real, no con Excel desactualizado.",
     tags: ["Metabase", "Power BI", "SQL", "ETL"],
+    price: "$150 USD",
   },
   {
     icon: Users,
@@ -54,6 +72,7 @@ const solutions = [
     description:
       "Implementamos y personalizamos tu CRM para que tu equipo comercial trabaje con contexto completo. Seguimiento de oportunidades, historial y automatización del pipeline.",
     tags: ["HubSpot", "Pipedrive", "Salesforce", "Custom"],
+    price: "$200 USD",
   },
   {
     icon: Code2,
@@ -61,10 +80,11 @@ const solutions = [
     description:
       "Cuando ninguna herramienta existente resuelve exactamente tu problema, construimos la solución desde cero. Aplicaciones web internas, portales de clientes y herramientas operativas.",
     tags: ["Next.js", "Node.js", "PostgreSQL", "APIs"],
+    price: "$500 USD",
   },
 ];
 
-const CARD_WIDTH = 300;
+const CARD_WIDTH = 340;
 const CARD_GAP = 20;
 const STEP = CARD_WIDTH + CARD_GAP;
 
@@ -82,7 +102,8 @@ export default function Solutions() {
   useEffect(() => {
     const calculate = () => {
       if (outerRef.current && innerRef.current) {
-        const max = innerRef.current.scrollWidth - outerRef.current.offsetWidth;
+        const max =
+          innerRef.current.scrollWidth - outerRef.current.offsetWidth;
         setMaxDrag(Math.max(0, max));
       }
     };
@@ -180,34 +201,80 @@ export default function Solutions() {
                 dragElastic={0.05}
                 dragTransition={{ bounceStiffness: 300, bounceDamping: 40 }}
                 onDragEnd={handleDragEnd}
-                className="flex gap-5"
+                className="flex gap-5 items-stretch"
               >
                 {solutions.map((solution) => (
                   <div
                     key={solution.title}
-                    className="group bg-surface-container-lowest rounded-2xl p-8 flex flex-col hover:shadow-[0_16px_48px_rgba(25,28,30,0.12)] hover:-translate-y-1 transition-all duration-300"
+                    className="card-glass group flex flex-col rounded-2xl"
                     style={{ width: CARD_WIDTH, minWidth: CARD_WIDTH }}
                   >
-                    <solution.icon
-                      size={48}
-                      className="text-accent/20 group-hover:text-accent/70 transition-colors duration-300 mb-5 flex-shrink-0"
-                      strokeWidth={1.5}
-                    />
-                    <h3 className="font-display font-semibold text-on-surface text-lg mb-3 leading-snug">
-                      {solution.title}
-                    </h3>
-                    <p className="text-on-surface-variant text-sm leading-relaxed mb-5 flex-1">
-                      {solution.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {solution.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2.5 py-1 bg-surface-container-low text-on-surface-variant text-xs font-medium rounded-full"
+                    {/* Card body */}
+                    <div className="p-7 flex flex-col flex-1">
+                      {/* Icon */}
+                      <solution.icon
+                        size={40}
+                        className="text-accent/40 group-hover:text-accent transition-colors duration-300 mb-5 flex-shrink-0"
+                        strokeWidth={1.5}
+                      />
+
+                      {/* Title */}
+                      <h3
+                        className="font-display font-semibold text-white text-lg leading-snug mb-3"
+                        style={{ letterSpacing: "-0.01em" }}
+                      >
+                        {solution.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-white/45 text-sm leading-relaxed flex-1">
+                        {solution.description}
+                      </p>
+
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-1.5 mt-5">
+                        {solution.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="px-2.5 py-1 bg-white/[0.05] border border-white/[0.07] text-white/35 text-xs font-medium rounded-full"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Pricing + CTA block */}
+                    <div className="px-7 pb-7">
+                      <div className="border-t border-white/[0.07] pt-5">
+                        {/* Price */}
+                        <div className="flex items-baseline gap-2 mb-4">
+                          <span className="text-white/30 text-xs font-medium uppercase tracking-widest">
+                            desde
+                          </span>
+                          <span
+                            className="font-display font-bold text-accent text-2xl"
+                            style={{ letterSpacing: "-0.02em" }}
+                          >
+                            {solution.price}
+                          </span>
+                          <span className="text-white/30 text-sm font-medium">
+                            /mes
+                          </span>
+                        </div>
+
+                        {/* CTA */}
+                        <a
+                          href="#contacto"
+                          className="flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-surface-tint text-white text-sm font-medium hover:bg-surface-tint/80 active:scale-[0.98] transition-all duration-200 group/btn"
                         >
-                          {tag}
-                        </span>
-                      ))}
+                          Cotizar solución
+                          <ArrowRight
+                            size={15}
+                            className="group-hover/btn:translate-x-0.5 transition-transform duration-200"
+                          />
+                        </a>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -215,9 +282,9 @@ export default function Solutions() {
             </div>
 
             {/* Progress bar */}
-            <div className="mt-8 h-px bg-white/8 rounded-full overflow-hidden">
+            <div className="mt-8 h-px bg-white/[0.06] rounded-full overflow-hidden">
               <motion.div
-                className="h-full bg-accent/60 rounded-full origin-left"
+                className="h-full bg-accent/50 rounded-full origin-left"
                 style={{ width: progressWidth }}
               />
             </div>
