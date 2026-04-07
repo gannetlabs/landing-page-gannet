@@ -37,6 +37,26 @@
     100% { transform: translate(0px, 0px) scale(1); }
   }
 
+  @keyframes tag-float {
+    0%, 100% { transform: translateY(0px); }
+    50%       { transform: translateY(-10px); }
+  }
+
+  @keyframes tag-glow {
+    0%, 62%, 100% {
+      color: rgba(255,255,255,0.38);
+      border-color: rgba(255,255,255,0.09);
+      background-color: rgba(255,255,255,0.04);
+      box-shadow: none;
+    }
+    72%, 88% {
+      color: #7dda9a;
+      border-color: rgba(125,218,154,0.50);
+      background-color: rgba(125,218,154,0.08);
+      box-shadow: 0 0 12px rgba(125,218,154,0.18), 0 0 0 2px rgba(125,218,154,0.10);
+    }
+  }
+
   @keyframes clients-marquee {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
@@ -110,6 +130,7 @@
 
   @media (prefers-reduced-motion: reduce) {
     .orb { animation: none; }
+    .hero-tag { animation: none !important; }
   }
 }
 
