@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { fadeUp, staggerContainer } from "@/lib/animations";
 import { ArrowRight, ChevronDown } from "lucide-react";
@@ -48,10 +49,51 @@ const floatingTags = [
 ];
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [mousePos, setMousePos] = useState<{ x: number; y: number } | null>(null);
+  const [activeRingIndex, setActiveRingIndex] = useState<number | null>(null);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLElement>) => {
+    const section = sectionRef.current;
+    const container = containerRef.current;
+    if (!section || !container) return;
+
+    const sectionRect = section.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+
+    const mx = e.clientX - sectionRect.left;
+    const my = e.clientY - sectionRect.top;
+
+    const centerX = (containerRect.left - sectionRect.left) + containerRect.width * 0.75;
+    const centerY = sectionRect.height * 0.5;
+
+    const dist = Math.sqrt((mx - centerX) ** 2 + (my - centerY) ** 2);
+
+    let closest = 0;
+    let minDelta = Infinity;
+    rings.forEach((ring, i) => {
+      const delta = Math.abs(dist - ring.size / 2);
+      if (delta < minDelta) { minDelta = delta; closest = i; }
+    });
+
+    const outerRadius = rings[rings.length - 1].size / 2;
+    setMousePos({ x: mx, y: my });
+    setActiveRingIndex(dist < outerRadius + 80 ? closest : null);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    setMousePos(null);
+    setActiveRingIndex(null);
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       id="inicio"
       className="relative bg-primary min-h-screen flex items-center overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Subtle grid */}
       <div
@@ -64,13 +106,30 @@ export default function Hero() {
         }}
       />
 
-      {/* ── Rings layer — full section, centered at right-col center, static ── */}
+      {/* ── Rings layer — full section, centered at right-col center ── */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         aria-hidden="true"
         style={{ overflow: "hidden" }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full relative">
+        {/* Cursor glow */}
+        {mousePos && (
+          <div
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              left: mousePos.x,
+              top: mousePos.y,
+              width: 320,
+              height: 320,
+              transform: "translate(-50%, -50%)",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(125,218,154,0.13) 0%, rgba(125,218,154,0.05) 45%, transparent 70%)",
+              pointerEvents: "none",
+            }}
+          />
+        )}
+        <div ref={containerRef} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full relative">
           <div
             style={{
               position: "absolute",
@@ -79,20 +138,28 @@ export default function Hero() {
               transform: "translate(-50%, -50%)",
             }}
           >
-            {rings.map((ring) => (
-              <div
-                key={ring.size}
-                style={{
-                  position: "absolute",
-                  width: ring.size,
-                  height: ring.size,
-                  left: -ring.size / 2,
-                  top: -ring.size / 2,
-                  borderRadius: "50%",
-                  border: `1px solid rgba(125,218,154,${ring.opacity})`,
-                }}
-              />
-            ))}
+            {rings.map((ring, i) => {
+              const isActive = activeRingIndex === i;
+              return (
+                <div
+                  key={ring.size}
+                  className={isActive ? "ring-active" : undefined}
+                  style={{
+                    position: "absolute",
+                    width: ring.size,
+                    height: ring.size,
+                    left: -ring.size / 2,
+                    top: -ring.size / 2,
+                    borderRadius: "50%",
+                    border: `1px solid rgba(125,218,154,${isActive ? ring.opacity * 4.5 : ring.opacity})`,
+                    boxShadow: isActive
+                      ? "0 0 0 1px rgba(125,218,154,0.12), 0 0 18px rgba(125,218,154,0.10), 0 0 40px rgba(125,218,154,0.05)"
+                      : "none",
+                    transition: "border-color 0.22s ease, box-shadow 0.22s ease",
+                  }}
+                />
+              );
+            })}
           </div>
         </div>
       </div>

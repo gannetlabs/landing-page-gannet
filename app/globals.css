@@ -57,6 +57,19 @@
     }
   }
 
+  @keyframes ring-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.55; }
+  }
+
+  .ring-active {
+    animation: ring-pulse 1.8s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ring-active { animation: none; }
+  }
+
   @keyframes clients-marquee {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
